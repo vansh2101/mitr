@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
+import './main.css'
+
 import Editor from '@monaco-editor/react';
+
 import bot from '../src/assets/bot.svg';
 import logo from '../src/assets/logo.png';
 import folder from '../src/assets/folder.svg';
@@ -7,21 +10,25 @@ import debug from '../src/assets/debug.svg';
 import run from '../src/assets/run.svg';
 import search from '../src/assets/search.svg';
 import vector from '../src/assets/vector.svg';
-import LanguageIcon from '../src/assets/LanguageIcon.png';
-import './main.css'
+// import LanguageIcon from '../src/assets/LanguageIcon.png';
 
 const files = {
-  "script.js": {
-    name: "script.js",
-    language: 'javascript',
-    value: "console.log('hello');",
-  },
-  "index.html": {
-    name: "index.html",
-    language: 'html',
-    value: "<p>Paragraph</p>"
-  },
-}
+    "script.js": {
+        name: "script.js",
+        language: 'javascript',
+        value: "// Welcome to JavaScript",
+    },
+    "index.html": {
+        name: "index.html",
+        language: 'html',
+        value: "<!-- Welcome to HTML -->"
+    },
+    "styles.css": {
+        name: "styles.css",
+        language: 'css',
+        value: "/* Welcome to CSS */"
+    }
+};
 
 function App() {
     const [fileName, setFileName] = useState("script.js");
@@ -71,11 +78,14 @@ function App() {
                 {/* Right panel */}
                 <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]">
                     <div className="right-header h-[5.091vh] flex items-center">
-                        <img className="ml-[1.058vw]" src={LanguageIcon} alt="LanguageIcon"></img>
-                        <p className="ml-[0.529vw]">App.js</p>
+                        {/* <img className="ml-[1.058vw]" src={LanguageIcon} alt="LanguageIcon"/> */}
+                        {/* <p className="ml-[0.529vw]">App.js</p> */}
+                        <button className="JavaScript ml-[1.190vw]" onClick={() => setFileName("script.js")}>App.js</button>
+                        <button className="HTML ml-[1.190vw]" onClick={() => setFileName("index.html")}>Index.html</button>
+                        <button className="CSS ml-[1.190vw]" onClick={() => setFileName("styles.css")}>Styles.css</button>
                     </div>
                     <div className="editor mt-3">
-                        <Editor height="75.105vh" theme="vs-dark" path={file.name} defaultLanguage={file.language} defaultValue={file.value}/>
+                        <Editor height="75.105vh" theme="vs-dark" path={file.name} defaultLanguage={file.language} defaultValue={file.value} />
                     </div>
                 </div>
             </div>

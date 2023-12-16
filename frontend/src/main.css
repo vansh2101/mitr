@@ -69,9 +69,10 @@
     background-color: #33333380;
 }
 
-.right-header p {
+.right-header button {
     color: #f2f2f299;
     font-family: "Manrope-Medium", Helvetica;
     font-size: 19px;
     font-weight: 500;
 }
+
