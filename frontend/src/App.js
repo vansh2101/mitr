@@ -62,27 +62,20 @@ function App() {
 
             </nav>
 
-
-            {/* Container (contains Left & rught panels) */}
-            <div className="container">
-
-
+            <div className="panelContainer w-full mt-[2.138vh] ml-[2.843vw] flex h-[84.215vh]">
                 {/* Left panel */}
-                <div className="leftPanel">
-                    <div className="left-header"></div>
+                <div className="leftPanel w-[17.129vw] h-[84.215vh]">
+                    <div className="left-header h-[5.091vh]"></div>
                 </div>
-
-
 
                 {/* Right panel */}
-                <div className="righttPanel">
-                    <div className="right-header">i</div>
+                <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]">
+                    <div className="right-header h-[5.091vh] flex items-center">
+                        <img className="ml-[1.058vw]" src={LanguageIcon} alt="LanguageIcon"></img>
+                        <p className="ml-[0.529vw]">App.js</p>
+                    </div>
                 </div>
-
-
             </div>
-
-
 
 
         </div>

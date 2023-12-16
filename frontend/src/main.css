@@ -57,3 +57,21 @@
 .search-field::placeholder {
     color: #f2f2f233;
 }
+
+.rightPanel, .leftPanel {
+    background-color: #1e1e1e;
+    border-radius: 20px;
+}
+
+.left-header, .right-header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #33333380;
+}
+
+.right-header p {
+    color: #f2f2f299;
+    font-family: "Manrope-Medium", Helvetica;
+    font-size: 19px;
+    font-weight: 500;
+}
