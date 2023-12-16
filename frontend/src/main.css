@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main {
+    background-color: #171717;
+}
+
+.project {
+    background-color: #1e1e1e;
+}
+
+.project p {
+    color: #f2f2f280;
+}
+
+.run p {
+    color: #08bf31;
+}
+
+.folder-1, .folder-2, .bot, .debug {
+    border-radius: 10px;
+}
+
+.folder-1, .folder-2 {
+    background-color: #8bc3eb66;
+}
+
+.bot {
+    background-color: #949be266;
+}
+
+.debug {
+    background-color: #d7b25266;
+}
+
+.project, .search, .run {
+    border-radius: 15px;
+}
+
+.run {
+    background-color: #08bf3166;
+    font-family: "Manrope-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.search {
+    background-color: #3333334c;
+}
+
+.search-field {
+    background-color: transparent;
+    outline: none;
+}
+
+.search-field::placeholder {
+    color: #f2f2f233;
+}

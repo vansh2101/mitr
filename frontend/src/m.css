@@ -1,0 +1,256 @@
+.project-page {
+    background-color: #171717;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.project-page .div {
+    background-color: #171717;
+    border: 1px solid;
+    border-color: #ffffff1a;
+    height: 982px;
+    position: relative;
+    width: 1512px;
+}
+
+.project-page .overlap {
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    height: 827px;
+    left: 43px;
+    position: absolute;
+    top: 109px;
+    width: 259px;
+}
+
+.project-page .rectangle {
+    background-color: #33333380;
+    border-radius: 20px 20px 0px 0px;
+    height: 50px;
+}
+
+.project-page .overlap-group {
+    background-color: #08bf3166;
+    border-radius: 15px;
+    height: 52px;
+    left: 1341px;
+    position: absolute;
+    top: 30px;
+    width: 127px;
+}
+
+.project-page .vector {
+    height: 18px;
+    left: 26px;
+    position: absolute;
+    top: 15px;
+    width: 18px;
+}
+
+.project-page .text-wrapper {
+    color: #08bf31;
+    font-family: "Manrope-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    left: 62px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 12px;
+    width: 39px;
+}
+
+.project-page .overlap-group-2 {
+    background-color: #3333334c;
+    border-radius: 15px;
+    height: 51px;
+    left: 646px;
+    position: absolute;
+    top: 31px;
+    width: 674px;
+}
+
+.project-page .img {
+    height: 18px;
+    left: 19px;
+    position: absolute;
+    top: 15px;
+    width: 20px;
+}
+
+.project-page .text-wrapper-2 {
+    color: #f2f2f233;
+    font-family: "Manrope-Bold", Helvetica;
+    font-size: 17px;
+    font-weight: 700;
+    left: 52px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 13px;
+    width: 236px;
+}
+
+.project-page .overlap-2 {
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    height: 56px;
+    left: 121px;
+    position: absolute;
+    top: 32px;
+    width: 235px;
+}
+
+.project-page .vector-2 {
+    height: 12px;
+    left: 15px;
+    position: absolute;
+    top: 25px;
+    width: 19px;
+}
+
+.project-page .text-wrapper-3 {
+    color: #f2f2f280;
+    font-family: "Manrope-SemiBold", Helvetica;
+    font-size: 20px;
+    font-weight: 600;
+    left: 52px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 14px;
+    width: 152px;
+}
+
+.project-page .overlap-3 {
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    height: 827px;
+    left: 318px;
+    position: absolute;
+    top: 109px;
+    width: 1150px;
+}
+
+.project-page .image {
+    height: 730px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 59px;
+    width: 934px;
+}
+
+.project-page .overlap-4 {
+    background-color: #33333380;
+    border-radius: 20px 20px 0px 0px;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1150px;
+}
+
+.project-page .text-wrapper-4 {
+    color: #f2f2f299;
+    font-family: "Manrope-Medium", Helvetica;
+    font-size: 19px;
+    font-weight: 500;
+    left: 46px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 14px;
+    width: 60px;
+}
+
+.project-page .file-img {
+    height: 20px;
+    left: 16px;
+    position: absolute;
+    top: 17px;
+    width: 22px;
+}
+
+.project-page .overlap-5 {
+    border-radius: 10px;
+    height: 46px;
+    left: 458px;
+    position: absolute;
+    top: 35px;
+    width: 46px;
+}
+
+.project-page .folder {
+    height: 20px;
+    left: 10px;
+    position: absolute;
+    top: 13px;
+    width: 26px;
+}
+
+.project-page .rectangle-2 {
+    background-color: #8bc3eb66;
+    border-radius: 10px;
+    height: 46px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 46px;
+}
+
+.project-page .overlap-6 {
+    border-radius: 10px;
+    height: 46px;
+    left: 394px;
+    position: absolute;
+    top: 35px;
+    width: 46px;
+}
+
+.project-page .vector-wrapper {
+    background-color: #d7b25266;
+    border-radius: 10px;
+    height: 46px;
+    left: 582px;
+    position: absolute;
+    top: 36px;
+    width: 46px;
+}
+
+.project-page .vector-3 {
+    height: 20px;
+    left: 13px;
+    position: absolute;
+    top: 12px;
+    width: 20px;
+}
+
+.project-page .bot-wrapper {
+    background-color: #949be266;
+    border-radius: 10px;
+    height: 46px;
+    left: 522px;
+    position: absolute;
+    top: 36px;
+    width: 46px;
+}
+
+.project-page .bot {
+    height: 20px;
+    left: 11px;
+    position: absolute;
+    top: 11px;
+    width: 25px;
+}
+
+.project-page .new-logo-removebg {
+    height: 61px;
+    left: 43px;
+    object-fit: cover;
+    position: absolute;
+    top: 30px;
+    width: 60px;
+}
