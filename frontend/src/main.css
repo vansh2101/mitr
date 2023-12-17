@@ -76,3 +76,73 @@
     font-weight: 500;
 }
 
+
+.leftP {
+    background-color: #262626;
+}
+
+.rightP {
+    background-color: #1E1E1E;
+}
+
+.heading, .mitr {
+    color: transparent;
+        font-family: "Manrope-ExtraBold", Helvetica;
+        font-size: 48px;
+        font-weight: 800;
+}
+
+
+.heading {
+    color: #b5b5b5;
+}
+
+.mitr {
+    color: #8bc3eb;
+}
+
+.help {
+    color: #f2f2f2;
+        font-family: "Manrope-Regular", Helvetica;
+        font-size: 18px;
+        font-weight: 400;
+}
+
+.btn {
+    background-color: #08bf31e6;
+        border-radius: 15px;
+}
+
+.workspace {
+    color: #b5b5b5;
+        font-family: "Manrope-ExtraBold", Helvetica;
+        font-size: 45px;
+        font-weight: 800;
+}
+
+.plus {
+    border-radius: 15px;
+    background-color: #08bf31e6;
+}
+
+.project-name {
+    border-radius: 0px 15px 15px 0px;
+    background-color: #202020;
+        border-color: #8bc3eb;
+        border-left-style: solid;
+        border-left-width: 0.529vw;
+}
+
+.content-head {
+    color: #b5b5b5;
+        font-family: "Manrope-Bold", Helvetica;
+        font-size: 28px;
+        font-weight: 550;
+}
+
+.content-time {
+    color: #b5b5b5bf;
+        font-family: "Manrope-Bold", Helvetica;
+        font-size: 18px;
+        font-weight: 400;
+}

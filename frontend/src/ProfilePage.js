@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import './main.css'
 
 import Editor from '@monaco-editor/react';
@@ -30,7 +30,7 @@ const files = {
     }
 };
 
-function App() {
+function ProjectPage() {
     const [fileName, setFileName] = useState("script.js");
     const file = files[fileName];
 
@@ -95,4 +95,4 @@ function App() {
     );
 }
 
-export default App;
+export default ProjectPage;
