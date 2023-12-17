@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main {
+    background-color: #171717;
+}
+
+.project {
+    background-color: #1e1e1e;
+}
+
+.project p {
+    color: #f2f2f280;
+}
+
+.run p {
+    color: #08bf31;
+}
+
+.folder-1, .folder-2, .bot, .debug {
+    border-radius: 10px;
+}
+
+.folder-1, .folder-2 {
+    background-color: #8bc3eb66;
+}
+
+.bot {
+    background-color: #949be266;
+}
+
+.debug {
+    background-color: #d7b25266;
+}
+
+.project, .search, .run {
+    border-radius: 15px;
+}
+
+.run {
+    background-color: #08bf3166;
+    font-family: "Manrope-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.search {
+    background-color: #3333334c;
+}
+
+.search-field {
+    background-color: transparent;
+    outline: none;
+}
+
+.search-field::placeholder {
+    color: #f2f2f233;
+}
+
+.rightPanel, .leftPanel {
+    background-color: #1e1e1e;
+    border-radius: 20px;
+}
+
+.left-header, .right-header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #33333380;
+}
+
+.right-header button {
+    color: #f2f2f299;
+    font-family: "Manrope-Medium", Helvetica;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+
+.leftP {
+    background-color: #262626;
+}
+
+.rightP {
+    background-color: #1E1E1E;
+}
+
+.heading, .mitr {
+    color: transparent;
+        font-family: "Manrope-ExtraBold", Helvetica;
+        font-size: 48px;
+        font-weight: 800;
+}
+
+
+.heading {
+    color: #b5b5b5;
+}
+
+.mitr {
+    color: #8bc3eb;
+}
+
+.help {
+    color: #f2f2f2;
+        font-family: "Manrope-Regular", Helvetica;
+        font-size: 18px;
+        font-weight: 400;
+}
+
+.btn {
+    background-color: #08bf31e6;
+        border-radius: 15px;
+}
+
+.workspace {
+    color: #b5b5b5;
+        font-family: "Manrope-ExtraBold", Helvetica;
+        font-size: 45px;
+        font-weight: 800;
+}
+
+.plus {
+    border-radius: 15px;
+    background-color: #08bf31e6;
+}
+
+.project-name {
+    border-radius: 0px 15px 15px 0px;
+    background-color: #202020;
+        border-color: #8bc3eb;
+        border-left-style: solid;
+        border-left-width: 0.529vw;
+}
+
+.content-head {
+    color: #b5b5b5;
+        font-family: "Manrope-Bold", Helvetica;
+        font-size: 28px;
+        font-weight: 550;
+}
+
+.content-time {
+    color: #b5b5b5bf;
+        font-family: "Manrope-Bold", Helvetica;
+        font-size: 18px;
+        font-weight: 400;
+}
