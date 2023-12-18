@@ -8,7 +8,7 @@ import firebase from 'firebase/compat/app'
 import {firebaseConfig} from './scripts/firebaseConfig'
 
 //? Pages
-import ProjectPage from './ProfilePage';
+import ProjectPage from './ProjectPage';
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
 
