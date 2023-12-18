@@ -1,21 +1,8 @@
-import React, { useState } from "react";
-import { create_workspace } from "../../scripts/dbFunc";
+import React from "react";
 
 import '../../main.css'
 
 function WorkspaceModal({ closeModal, handleCreateWorkspaceClick, name, type, setWorkspaceName, setWorkspaceType }) {
-    // const [workspaceName, setWorkspaceName] = useState('');
-    // const [workspaceType, setWorkspaceType] = useState('');
-
-    // const handleCreateWorkspaceClick = () => {
-    //     let newDate = new Date();
-    //     let day = newDate.getDate();
-    //     let month = newDate.getMonth() + 1;
-    //     let year = newDate.getFullYear();
-    //     const workspaces = [...all_ws, {'name': workspaceName, 'type': workspaceType, 'date': `${day} / ${month} / ${year}`}];
-    //     create_workspace(localStorage.getItem('user'), workspaceName, workspaces);
-    //     closeModal();
-    // };
 
     return (
         <div className="modal w-[19.179vw] h-[21.975vh] flex justify-center absolute top-50 left-50">
