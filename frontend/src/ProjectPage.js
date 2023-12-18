@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import './main.css'
-import { Link } from 'react-router-dom';
 
 import Editor from '@monaco-editor/react';
 
@@ -12,6 +11,11 @@ import run from '../src/assets/run.svg';
 import search from '../src/assets/search.svg';
 import vector from '../src/assets/vector.svg';
 // import LanguageIcon from '../src/assets/LanguageIcon.png';
+
+import { IoIosArrowForward } from "react-icons/io";
+import { FiMinusSquare } from "react-icons/fi";
+
+import BotPanel from "./components/BotPanel";
 
 const files = {
     "script.js": {
@@ -34,6 +38,44 @@ const files = {
 function ProjectPage() {
     const [fileName, setFileName] = useState("script.js");
     const file = files[fileName];
+    const [isPanelVisible, setPanelVisibility] = useState(false);
+    const [folderData, setFolderData] = useState([
+        {
+            name: 'Folder 1',
+            files: ['File 1.1', 'File 1.2', 'File 1.3'],
+        },
+        {
+            name: 'Folder 2',
+            files: ['File 2.1', 'File 2.2'],
+        },
+        {
+            name: 'Folder 3',
+            files: ['File 3.1'],
+        },
+        {
+            name: 'Folder 4',
+            files: ['File 4.1', 'File 4.2', 'File 4.3'],
+        },
+        {
+            name: 'Folder 5',
+            files: ['File 5.1', 'File 5.2', 'File 5.3', 'File 5.4', 'File 5.5'],
+        },
+    ]);
+
+    const toggleFilesVisibility = (index) => {
+        const updatedFolders = [...folderData];
+        updatedFolders[index].isOpen = !updatedFolders[index].isOpen;
+        setFolderData(updatedFolders);
+    };
+
+    const closeAllFolders = () => {
+        const updatedFolders = folderData.map((folder) => ({ ...folder, isOpen: false }));
+        setFolderData(updatedFolders);
+    };
+
+    const toggleBotPanel = () => {
+        setPanelVisibility(!isPanelVisible);
+    }
 
     return (
         <div className="main h-screen w-screen">
@@ -42,9 +84,7 @@ function ProjectPage() {
             {/* Navigation Menu */}
             <nav className="navigation-menu flex flex-row pt-[3.156vh]">
 
-                <Link to="/dashboard">
-                    <img className="logo w-[3.9682vw] h-[5.193vh] ml-[2.843vw]" src={logo} alt="logo" />
-                </Link>
+                <img className="logo w-[3.9682vw] h-[5.193vh] ml-[2.843vw]" src={logo} alt="logo" />
                 <div className="project w-[15.54vw] ml-[1.190vw] flex items-center justify-center cursor-pointer">
                     <img src={vector} alt="vector" />
                     <p className="pl-[1.190vw]">Sample Project</p>
@@ -55,7 +95,7 @@ function ProjectPage() {
                 <div className="folder-2 w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
                     <img className="w-[1.653vw]" src={folder} alt="folder" />
                 </div>
-                <div className="bot w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
+                <div onClick={toggleBotPanel} className="bot w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
                     <img className="w-[1.653vw]" src={bot} alt="bot" />
                 </div>
                 <div className="debug w-[3.042vw] ml-[0.925vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
@@ -75,11 +115,43 @@ function ProjectPage() {
             <div className="panelContainer w-full mt-[2.138vh] ml-[2.843vw] flex h-[84.215vh]">
                 {/* Left panel */}
                 <div className="leftPanel w-[17.129vw] h-[84.215vh]">
-                    <div className="left-header h-[5.091vh]"></div>
+                    <div className="left-header h-[5.091vh] flex items-center text-white bg-[#2D2D2D]">
+                        <span className="ml-[1.190vw]">Explorer</span>
+                        <FiMinusSquare onClick={closeAllFolders} className="text-white opacity-60 ml-[9vw] cursor-pointer" />
+                    </div>
+                    <hr className="opacity-90 border-t-[1px] border-solid border-[#3D3D3D]" />
+                    {folderData.map((folder, index) => (
+                        <div key={index}>
+                            <div
+                                className="left-header-content h-[4.091vh] flex items-center text-white cursor-pointer ml-[2px]"
+                                onClick={() => toggleFilesVisibility(index)}
+                            >
+                                <IoIosArrowForward
+                                    className={`text-white opacity-60 ml-1 transform ${folder.isOpen ? 'rotate-90' : ''
+                                        }`}
+                                />
+                                <span className="text-white opacity-60 ml-1">{folder.name}</span>
+                            </div>
+                            {folder.isOpen && (
+                                <>
+                                    {folder.files.map((file, fileIndex) => (
+                                        <div
+                                            key={fileIndex}
+                                            className="file-box flex items-center ml-[5px] mr-[5px] mb-[5px] cursor-pointer"
+                                        >
+                                            <span className="text-white opacity-60 ml-6">{file}</span>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                            <hr className="opacity-40 border-t-[1px] border-solid border-[#3D3D3D]" />
+                        </div>
+                    ))}
                 </div>
 
                 {/* Right panel */}
-                <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]">
+                {/* <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]"> */}
+                <div className={`rightPanel ${isPanelVisible ? 'w-[37.5vw]' : 'w-[76.058vw]'} h-[84.215vh] ml-[1.058vw]`}>
                     <div className="right-header h-[5.091vh] flex items-center">
                         {/* <img className="ml-[1.058vw]" src={LanguageIcon} alt="LanguageIcon"/> */}
                         {/* <p className="ml-[0.529vw]">App.js</p> */}
@@ -93,6 +165,8 @@ function ProjectPage() {
                 </div>
             </div>
 
+            {/* Bot Panel */}
+            {isPanelVisible && <BotPanel onClose={toggleBotPanel} />}
 
         </div>
     );

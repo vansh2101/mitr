@@ -1,6 +1,7 @@
 import React from "react";
 import './main.css';
 import { Link } from 'react-router-dom';
+import { github_login, logout } from "./scripts/dbFunc";
 
 
 import logo from '../src/assets/logo.png';
@@ -8,6 +9,14 @@ import loginBg from '../src/assets/loginBg.png';
 import gitIcon from '../src/assets/gitIcon.svg';
 
 function LoginPage() {
+    if (localStorage.getItem('user')) window.location.href = '/dashboard'
+
+    const login = () => {
+        github_login()
+        window.location.href = '/dashboard'
+        // logout()
+    }
+
     return (
         <div>
             <div className="auth h-screen w-screen flex">
@@ -34,12 +43,12 @@ function LoginPage() {
                             <span className="mitr">mitr</span>
                         </p>
 
-                        <Link to="/dashboard">
-                            <button className="btnGit bg-black h-[8.655vh] w-[29.761vw] mt-[5.906vh] ml-[4.034vw] flex items-center">
+                        {/* <Link to="/dashboard"> */}
+                            <button className="btnGit bg-black h-[8.655vh] w-[29.761vw] mt-[5.906vh] ml-[4.034vw] flex items-center" onClick={login}>
                                 <img className="ml-[5.357vw]" src={gitIcon} alt="gitIcon"/>
                                 <span className="git-signin ml-[1.658vw] text-white text-center">Sign in with GitHub</span> 
                             </button>
-                        </Link>
+                        {/* </Link> */}
                     </div>
                 </div>
             </div>
