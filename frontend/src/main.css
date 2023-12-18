@@ -187,3 +187,12 @@
         font-size: 24px;
         font-weight: 650;
 }
+
+.modal {
+    background-color: #08bf31e6;
+    border-radius: 15px;
+}
+
+.modal-content input {
+    border-radius: 7px;
+}

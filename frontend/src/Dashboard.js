@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './main.css';
 
 import logo from '../src/assets/logo.png';
@@ -6,9 +6,27 @@ import plus from '../src/assets/plus.svg';
 import reactIcon from '../src/assets/reactIcon.png';
 import nodeIcon from '../src/assets/nodeIcon.png';
 import forwardArrow from '../src/assets/forwardArrow.svg';
+import WorkspaceModal from "./components/modals/WorkspaceModal";
 
 
 function Dashboard() {
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+
+    const handleCreateWorkspace = () => {
+        // Implement Workspace Creation logic here!
+        console.log("Creating workspace...");
+
+        closeModal();
+    };
+
     return (
         <div className="whole h-screen w-screen flex">
             {/* Left Panel */}
@@ -76,10 +94,16 @@ function Dashboard() {
                         Need help? Create MERN focused projects with your mitr to get complete code assistance to build faster
                     </p>
 
-                    <button className="btn h-[5.90vh] w-[19.179vw] mt-[3.156vh] ml-[8.068vw]">
+                    <button onClick={openModal} className="btn h-[5.90vh] w-[19.179vw] mt-[3.156vh] ml-[8.068vw]">
                         + Create new workspace
                     </button>
                 </div>
+                {isModalOpen && (
+                    <WorkspaceModal
+                        closeModal={closeModal}
+                        handleCreateWorkspace={handleCreateWorkspace}
+                    />
+                )}
             </div>
         </div>
     );
