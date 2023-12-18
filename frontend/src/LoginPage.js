@@ -13,8 +13,6 @@ function LoginPage() {
 
     const login = () => {
         github_login()
-        window.location.href = '/dashboard'
-        // logout()
     }
 
     return (

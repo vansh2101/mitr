@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./main.css";
 import { Link } from 'react-router-dom';
+import { logout, get_workspaces, create_workspace } from "./scripts/dbFunc";
 import './main.css';
 
 import logo from '../src/assets/logo.png';
@@ -11,7 +12,13 @@ import forwardArrow from '../src/assets/forwardArrow.svg';
 import WorkspaceModal from "./components/modals/WorkspaceModal";
 
 function Dashboard() {
+    const user = localStorage.getItem('user')
+    if (!user) window.location.href = '/'
+
     const [isModalOpen, setModalOpen] = useState(false);
+    const [workspaces, setWorkspaces] = useState([]);
+    const [workspaceName, setWorkspaceName] = useState('');
+    const [workspaceType, setWorkspaceType] = useState('');
 
     const openModal = () => {
         setModalOpen(true);
@@ -22,11 +29,26 @@ function Dashboard() {
     };
 
     const handleCreateWorkspace = () => {
-        // Implement Workspace Creation logic here!
-        console.log("Creating workspace...");
+        let newDate = new Date();
+        let day = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
 
+        const ws = [...workspaces, {'name': workspaceName, 'type': workspaceType, 'date': `${day} / ${month} / ${year}`}];
+        create_workspace(localStorage.getItem('user'), workspaceName, ws);
+        get_data()
         closeModal();
     };
+
+    const get_data = () => {
+        get_workspaces(user).then(res => {
+            setWorkspaces(res.data()['workspaces'])
+        })
+    }
+
+    useEffect(()=> {
+        get_data()
+    }, [])
 
     return (
         <div className="whole h-screen w-screen flex">
@@ -36,7 +58,7 @@ function Dashboard() {
 
                 <div className="leftP-header mt-[9.603vh] flex">
                     <div className="workspace w-[23.941vw] h-[6.720vh] ml-[6.944vw] mb-[0.916vh]">WORKSPACES:</div>
-                    <div className="flex items-center justify-center ml-[15.542vw]">
+                    <div className="flex items-center justify-center ml-[15.542vw] cursor-pointer" onClick={logout}>
                         <div className="plus w-[3.571vw] h-[5.498vh] flex items-center justify-center bg-slate-50">
                             <img src={plus} alt="plus"/>
                         </div>
@@ -44,13 +66,13 @@ function Dashboard() {
                 </div>
 
                 <div className="leftP-content w-[39.484vw] ml-[6.944vw] mt-[8.248vh]">
-                    {[0,1,2,3].map(key =>
+                    {workspaces.map((item, key) =>
                     <Link to="/project" key={key}>
                     <div className="project-name h-[10.285vh] mt-[2.240vh] flex items-center">
-                        <img className="w-[3.306vw] h-[4.844vh] ml-[2.513vw]" src={reactIcon} alt="reactIcon"></img>
+                        <img className="w-[3.306vw] h-[4.844vh] ml-[2.513vw]" src={item.type == 'react' ? reactIcon : nodeIcon} alt="reactIcon"></img>
                         <div className="content ml-[1.587vw] h-[7.128vh]">
-                            <div className="content-head w-[14.351vw] h-[4.175vh] text-center flex items-center justify-center">Food Website</div>
-                            <div className="content-time w-[8.201vw] h-[2.953vh] ml-[0.793vw] flex items-center justify-center">23-11-2023</div>
+                            <div className="content-head w-[14.351vw] h-[4.175vh] flex items-center justify-center">{item.name}</div>
+                            <div className="content-time w-[8.201vw] h-[2.953vh] ml-[0.793vw] flex items-center justify-center">{item.date}</div>
                         </div>
                         <img className="ml-[13.095vw]" src={forwardArrow} alt="forwardArrow"/>
                     </div>
@@ -82,7 +104,11 @@ function Dashboard() {
                 {isModalOpen && (
                     <WorkspaceModal
                         closeModal={closeModal}
-                        handleCreateWorkspace={handleCreateWorkspace}
+                        handleCreateWorkspaceClick={handleCreateWorkspace}
+                        name={workspaceName}
+                        type={workspaceType}
+                        setWorkspaceName={setWorkspaceName}
+                        setWorkspaceType={setWorkspaceType}
                     />
                 )}
             </div>

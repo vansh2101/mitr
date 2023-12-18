@@ -23,12 +23,16 @@ export function get_files_from_db(user, project){
 export function get_workspaces(user){
     const db = firebase.firestore()
 
-    db.collection('projects').doc(user).get()
+    return db.collection('projects').doc(user).get()
 }
 
 
-export function create_workspace(user, name){
+export function create_workspace(user, name, workspaces){
     const db = firebase.firestore()
+
+    db.collection('projects').doc(user).set({
+        workspaces: workspaces
+    })
 
     db.collection('projects').doc(user).collection(name).doc('index.js').set({
         name: 'index.js',
@@ -43,11 +47,26 @@ export function github_login(){
     firebase.auth().signInWithPopup(provider).then(res => {
         console.log(res)
         localStorage.setItem('user', JSON.stringify(res.additionalUserInfo.username))
+        window.location.href = '/dashboard'
     })
 }
 
 export function logout(){
     firebase.auth().signOut().then(res => {
         localStorage.removeItem('user')
+        window.location.href = '/'
     })
 }
+
+
+export async function upload(uri){
+    if (uri !== undefined){
+      const response = await fetch(uri)
+      const blob = await response.blob()
+
+      let path = 'convert_img'
+
+      var ref = firebase.storage().ref().child(path)
+      return ref.put(blob)
+    }
+  }
