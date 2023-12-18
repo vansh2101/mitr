@@ -21,13 +21,13 @@ router.get('/', (req, res) => {
 router.post('/msg', async (req, res) => {
     const {prompt} = req.body
 
-    const completion = await openai.completions.create({
-        model: 'gpt-3.5-turbo',
-        prompt: prompt,
+    const completion = await openai.chat.completions.create({
+        model: 'gpt-4',
         temperature: 0.5,
+        messages: [{"role": "user", "content": prompt}],
     })
 
-    res.json(completion.choices[0].text)
+    res.json(completion.choices[0].message.content)
 })
 
 

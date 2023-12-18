@@ -13,6 +13,7 @@ app.use(cors({origin: '*'}))
 //? Routes
 app.use('/auth', require('./routes/auth'))
 app.use('/user', require('./routes/userData'))
+app.use('/assistant', require('./routes/assistant'))
 
 
 //? Initializing server
