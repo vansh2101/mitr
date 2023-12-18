@@ -11,7 +11,7 @@ function WorkspaceModal({ closeModal, handleCreateWorkspace }) {
     };
 
     return (
-        <div className="modal w-[19.179vw] h-[21.975vh] mt-[3.156vh] flex justify-center">
+        <div className="modal w-[19.179vw] h-[21.975vh] flex justify-center absolute top-50 left-50">
             <div className="modal-content p-[20px]">
                 <label htmlFor="workspaceName">Workspace Name:</label>
                 <input
