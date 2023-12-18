@@ -95,14 +95,8 @@ body{
 
 .heading, .mitr {
     color: transparent;
-<<<<<<< HEAD
         font-size: 48px;
         font-weight: 800;
-=======
-    font-family: "Manrope-ExtraBold", Helvetica;
-    font-size: 48px;
-    font-weight: 800;
->>>>>>> 71abf0714df950bc816a5689bb5b8b6bf6e3a26d
 }
 
 
@@ -116,25 +110,15 @@ body{
 
 .help {
     color: #f2f2f2;
-<<<<<<< HEAD
         font-size: 1vw;
         opacity: 0.5;
-=======
-    font-family: "Manrope-Regular", Helvetica;
-    font-size: 18px;
-    font-weight: 400;
->>>>>>> 71abf0714df950bc816a5689bb5b8b6bf6e3a26d
 }
 
 .btn {
     background-color: #08bf31e6;
-<<<<<<< HEAD
         border-radius: 15px;
         font-family: "Manrope", sans-serif;
         font-weight: 700;
-=======
-    border-radius: 15px;
->>>>>>> 71abf0714df950bc816a5689bb5b8b6bf6e3a26d
 }
 
 .workspace {
@@ -159,26 +143,16 @@ body{
 
 .content-head {
     color: #b5b5b5;
-<<<<<<< HEAD
         font-size: 1.7vw;
         font-weight: 700;
-=======
-    font-family: "Manrope-Bold", Helvetica;
-    font-size: 28px;
-    font-weight: 550;
->>>>>>> 71abf0714df950bc816a5689bb5b8b6bf6e3a26d
 }
 
 .content-time {
     color: #b5b5b5bf;
-<<<<<<< HEAD
         font-size: 1vw;
         font-weight: 400;
         opacity: 0.8;
-=======
     font-family: "Manrope-Bold", Helvetica;
-    font-size: 18px;
-    font-weight: 400;
 }
 
 
@@ -225,5 +199,4 @@ body{
 
 .modal-content input {
     border-radius: 7px;
->>>>>>> 71abf0714df950bc816a5689bb5b8b6bf6e3a26d
 }

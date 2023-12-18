@@ -1,5 +1,7 @@
 import React from "react";
 import './main.css';
+import { Link } from 'react-router-dom';
+
 
 import logo from '../src/assets/logo.png';
 import loginBg from '../src/assets/loginBg.png';
@@ -32,10 +34,12 @@ function LoginPage() {
                             <span className="mitr">mitr</span>
                         </p>
 
-                        <button className="btnGit bg-black h-[8.655vh] w-[29.761vw] mt-[5.906vh] ml-[4.034vw] flex items-center">
-                            <img className="ml-[5.357vw]" src={gitIcon} alt="gitIcon"/>
-                            <span className="git-signin ml-[1.658vw] text-white text-center">Sign in with GitHub</span> 
-                        </button>
+                        <Link to="/dashboard">
+                            <button className="btnGit bg-black h-[8.655vh] w-[29.761vw] mt-[5.906vh] ml-[4.034vw] flex items-center">
+                                <img className="ml-[5.357vw]" src={gitIcon} alt="gitIcon"/>
+                                <span className="git-signin ml-[1.658vw] text-white text-center">Sign in with GitHub</span> 
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
