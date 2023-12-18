@@ -10,7 +10,7 @@ import forwardArrow from '../src/assets/forwardArrow.svg';
 
 function Dashboard() {
     return (
-        <div className="whole h-screen w-screen bg-slate-500 flex">
+        <div className="whole h-screen w-screen flex">
             {/* Left Panel */}
             <div className="leftP w-[54.365vw]">
                 <img className="logo w-[3.9682vw] h-[5.193vh] ml-[2.976vw] mt-[4.073vh]" src={logo} alt="logo" />

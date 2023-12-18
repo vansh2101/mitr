@@ -77,6 +77,10 @@
 }
 
 
+
+
+/* ============================================ Dashboard CSS ============================================ */
+
 .leftP {
     background-color: #262626;
 }
@@ -87,9 +91,9 @@
 
 .heading, .mitr {
     color: transparent;
-        font-family: "Manrope-ExtraBold", Helvetica;
-        font-size: 48px;
-        font-weight: 800;
+    font-family: "Manrope-ExtraBold", Helvetica;
+    font-size: 48px;
+    font-weight: 800;
 }
 
 
@@ -103,21 +107,21 @@
 
 .help {
     color: #f2f2f2;
-        font-family: "Manrope-Regular", Helvetica;
-        font-size: 18px;
-        font-weight: 400;
+    font-family: "Manrope-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 .btn {
     background-color: #08bf31e6;
-        border-radius: 15px;
+    border-radius: 15px;
 }
 
 .workspace {
     color: #b5b5b5;
-        font-family: "Manrope-ExtraBold", Helvetica;
-        font-size: 45px;
-        font-weight: 800;
+    font-family: "Manrope-ExtraBold", Helvetica;
+    font-size: 45px;
+    font-weight: 800;
 }
 
 .plus {
@@ -128,21 +132,58 @@
 .project-name {
     border-radius: 0px 15px 15px 0px;
     background-color: #202020;
-        border-color: #8bc3eb;
-        border-left-style: solid;
-        border-left-width: 0.529vw;
+    border-color: #8bc3eb;
+    border-left-style: solid;
+    border-left-width: 0.529vw;
 }
 
 .content-head {
     color: #b5b5b5;
-        font-family: "Manrope-Bold", Helvetica;
-        font-size: 28px;
-        font-weight: 550;
+    font-family: "Manrope-Bold", Helvetica;
+    font-size: 28px;
+    font-weight: 550;
 }
 
 .content-time {
     color: #b5b5b5bf;
-        font-family: "Manrope-Bold", Helvetica;
-        font-size: 18px;
-        font-weight: 400;
+    font-family: "Manrope-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+
+
+
+/* ============================================ LoginPage CSS ============================================ */
+.leftA {
+    background-color: #1E1E1E;
+}
+
+.rightA {
+    background-color: #262626;
+}
+
+.btnGit {
+    border-radius: 10px;
+}
+
+.headingRA {
+    color: transparent;
+    font-family: "Manrope-ExtraBold", Helvetica;
+    font-size: 42px;
+    font-weight: 700;
+    color: #b5b5b5;
+}
+
+.logo-name {
+    color: #8bc3eb;
+        font-family: "Manrope-ExtraBold", Helvetica;
+        font-size: 40px;
+        font-weight: 700;
+}
+
+.git-signin {
+    font-family: "Manrope-ExtraBold", Helvetica;
+        font-size: 24px;
+        font-weight: 650;
 }
