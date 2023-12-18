@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import './main.css'
-import { Link } from 'react-router-dom';
 
 import Editor from '@monaco-editor/react';
 
@@ -12,6 +11,8 @@ import run from '../src/assets/run.svg';
 import search from '../src/assets/search.svg';
 import vector from '../src/assets/vector.svg';
 // import LanguageIcon from '../src/assets/LanguageIcon.png';
+
+import BotPanel from "./components/BotPanel";
 
 const files = {
     "script.js": {
@@ -34,6 +35,11 @@ const files = {
 function ProjectPage() {
     const [fileName, setFileName] = useState("script.js");
     const file = files[fileName];
+    const [isPanelVisible, setPanelVisibility] = useState(false);
+    
+    const toggleBotPanel = () => {
+        setPanelVisibility(!isPanelVisible);
+    }
 
     return (
         <div className="main h-screen w-screen">
@@ -42,9 +48,7 @@ function ProjectPage() {
             {/* Navigation Menu */}
             <nav className="navigation-menu flex flex-row pt-[3.156vh]">
 
-                <Link to="/dashboard">
-                    <img className="logo w-[3.9682vw] h-[5.193vh] ml-[2.843vw]" src={logo} alt="logo" />
-                </Link>
+                <img className="logo w-[3.9682vw] h-[5.193vh] ml-[2.843vw]" src={logo} alt="logo" />
                 <div className="project w-[15.54vw] ml-[1.190vw] flex items-center justify-center cursor-pointer">
                     <img src={vector} alt="vector" />
                     <p className="pl-[1.190vw]">Sample Project</p>
@@ -55,7 +59,7 @@ function ProjectPage() {
                 <div className="folder-2 w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
                     <img className="w-[1.653vw]" src={folder} alt="folder" />
                 </div>
-                <div className="bot w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
+                <div onClick={toggleBotPanel} className="bot w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
                     <img className="w-[1.653vw]" src={bot} alt="bot" />
                 </div>
                 <div className="debug w-[3.042vw] ml-[0.925vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
@@ -79,7 +83,8 @@ function ProjectPage() {
                 </div>
 
                 {/* Right panel */}
-                <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]">
+                {/* <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]"> */}
+                <div className={`rightPanel ${isPanelVisible ? 'w-[37.5vw]' : 'w-[76.058vw]'} h-[84.215vh] ml-[1.058vw]`}>
                     <div className="right-header h-[5.091vh] flex items-center">
                         {/* <img className="ml-[1.058vw]" src={LanguageIcon} alt="LanguageIcon"/> */}
                         {/* <p className="ml-[0.529vw]">App.js</p> */}
@@ -93,6 +98,8 @@ function ProjectPage() {
                 </div>
             </div>
 
+        {/* Bot Panel */}
+        {isPanelVisible && <BotPanel onClose={toggleBotPanel} />}
 
         </div>
     );

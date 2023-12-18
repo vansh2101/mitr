@@ -4,7 +4,7 @@ import './main.css';
 import { BrowserRouter , Route,  Routes } from 'react-router-dom';
 
 //? Pages
-import ProjectPage from './ProfilePage';
+import ProjectPage from './ProjectPage';
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
 

@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-
-body{
-    font-family: 'Manrope', sans-serif;
-}
-
 .main {
     background-color: #171717;
 }
@@ -46,6 +40,7 @@ body{
 
 .run {
     background-color: #08bf3166;
+    font-family: "Manrope-Bold", Helvetica;
     font-size: 18px;
     font-weight: 700;
 }
@@ -76,6 +71,7 @@ body{
 
 .right-header button {
     color: #f2f2f299;
+    font-family: "Manrope-Medium", Helvetica;
     font-size: 19px;
     font-weight: 500;
 }
@@ -95,8 +91,9 @@ body{
 
 .heading, .mitr {
     color: transparent;
-        font-size: 48px;
-        font-weight: 800;
+    font-family: "Manrope-ExtraBold", Helvetica;
+    font-size: 48px;
+    font-weight: 800;
 }
 
 
@@ -110,15 +107,14 @@ body{
 
 .help {
     color: #f2f2f2;
-        font-size: 1vw;
-        opacity: 0.5;
+    font-family: "Manrope-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 .btn {
     background-color: #08bf31e6;
-        border-radius: 15px;
-        font-family: "Manrope", sans-serif;
-        font-weight: 700;
+    border-radius: 15px;
 }
 
 .workspace {
@@ -143,16 +139,16 @@ body{
 
 .content-head {
     color: #b5b5b5;
-        font-size: 1.7vw;
-        font-weight: 700;
+    font-family: "Manrope-Bold", Helvetica;
+    font-size: 28px;
+    font-weight: 550;
 }
 
 .content-time {
     color: #b5b5b5bf;
-        font-size: 1vw;
-        font-weight: 400;
-        opacity: 0.8;
     font-family: "Manrope-Bold", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 
@@ -199,4 +195,30 @@ body{
 
 .modal-content input {
     border-radius: 7px;
+}
+
+
+.bot-panel {
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.bot-panel.hidden {
+    transform: translateX(100%);
+}
+
+.botPanel {
+    background-color: #949be266;
+    border-radius: 20px;
+}
+
+.bot-header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #949be266;
+}
+
+.bot-input {
+    border-radius: 10px;
+    background-color: #949be266;
 }
