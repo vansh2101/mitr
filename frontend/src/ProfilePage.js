@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './main.css'
+import { Link } from 'react-router-dom';
 
 import Editor from '@monaco-editor/react';
 
@@ -41,7 +42,9 @@ function ProjectPage() {
             {/* Navigation Menu */}
             <nav className="navigation-menu flex flex-row pt-[3.156vh]">
 
-                <img className="logo w-[3.9682vw] h-[5.193vh] ml-[2.843vw]" src={logo} alt="logo" />
+                <Link to="/dashboard">
+                    <img className="logo w-[3.9682vw] h-[5.193vh] ml-[2.843vw]" src={logo} alt="logo" />
+                </Link>
                 <div className="project w-[15.54vw] ml-[1.190vw] flex items-center justify-center cursor-pointer">
                     <img src={vector} alt="vector" />
                     <p className="pl-[1.190vw]">Sample Project</p>

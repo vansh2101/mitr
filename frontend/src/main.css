@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+body{
+    font-family: 'Manrope', sans-serif;
+}
+
 .main {
     background-color: #171717;
 }
@@ -40,7 +46,6 @@
 
 .run {
     background-color: #08bf3166;
-    font-family: "Manrope-Bold", Helvetica;
     font-size: 18px;
     font-weight: 700;
 }
@@ -71,7 +76,6 @@
 
 .right-header button {
     color: #f2f2f299;
-    font-family: "Manrope-Medium", Helvetica;
     font-size: 19px;
     font-weight: 500;
 }
@@ -87,7 +91,6 @@
 
 .heading, .mitr {
     color: transparent;
-        font-family: "Manrope-ExtraBold", Helvetica;
         font-size: 48px;
         font-weight: 800;
 }
@@ -103,14 +106,15 @@
 
 .help {
     color: #f2f2f2;
-        font-family: "Manrope-Regular", Helvetica;
-        font-size: 18px;
-        font-weight: 400;
+        font-size: 1vw;
+        opacity: 0.5;
 }
 
 .btn {
     background-color: #08bf31e6;
         border-radius: 15px;
+        font-family: "Manrope", sans-serif;
+        font-weight: 700;
 }
 
 .workspace {
@@ -135,14 +139,13 @@
 
 .content-head {
     color: #b5b5b5;
-        font-family: "Manrope-Bold", Helvetica;
-        font-size: 28px;
-        font-weight: 550;
+        font-size: 1.7vw;
+        font-weight: 700;
 }
 
 .content-time {
     color: #b5b5b5bf;
-        font-family: "Manrope-Bold", Helvetica;
-        font-size: 18px;
+        font-size: 1vw;
         font-weight: 400;
+        opacity: 0.8;
 }
