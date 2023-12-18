@@ -12,6 +12,9 @@ import search from '../src/assets/search.svg';
 import vector from '../src/assets/vector.svg';
 // import LanguageIcon from '../src/assets/LanguageIcon.png';
 
+import { IoIosArrowForward } from "react-icons/io";
+import { FiMinusSquare } from "react-icons/fi";
+
 import BotPanel from "./components/BotPanel";
 
 const files = {
@@ -36,7 +39,40 @@ function ProjectPage() {
     const [fileName, setFileName] = useState("script.js");
     const file = files[fileName];
     const [isPanelVisible, setPanelVisibility] = useState(false);
-    
+    const [folderData, setFolderData] = useState([
+        {
+            name: 'Folder 1',
+            files: ['File 1.1', 'File 1.2', 'File 1.3'],
+        },
+        {
+            name: 'Folder 2',
+            files: ['File 2.1', 'File 2.2'],
+        },
+        {
+            name: 'Folder 3',
+            files: ['File 3.1'],
+        },
+        {
+            name: 'Folder 4',
+            files: ['File 4.1', 'File 4.2', 'File 4.3'],
+        },
+        {
+            name: 'Folder 5',
+            files: ['File 5.1', 'File 5.2', 'File 5.3', 'File 5.4', 'File 5.5'],
+        },
+    ]);
+
+    const toggleFilesVisibility = (index) => {
+        const updatedFolders = [...folderData];
+        updatedFolders[index].isOpen = !updatedFolders[index].isOpen;
+        setFolderData(updatedFolders);
+    };
+
+    const closeAllFolders = () => {
+        const updatedFolders = folderData.map((folder) => ({ ...folder, isOpen: false }));
+        setFolderData(updatedFolders);
+    };
+
     const toggleBotPanel = () => {
         setPanelVisibility(!isPanelVisible);
     }
@@ -79,7 +115,38 @@ function ProjectPage() {
             <div className="panelContainer w-full mt-[2.138vh] ml-[2.843vw] flex h-[84.215vh]">
                 {/* Left panel */}
                 <div className="leftPanel w-[17.129vw] h-[84.215vh]">
-                    <div className="left-header h-[5.091vh]"></div>
+                    <div className="left-header h-[5.091vh] flex items-center text-white bg-[#2D2D2D]">
+                        <span className="ml-[1.190vw]">Explorer</span>
+                        <FiMinusSquare onClick={closeAllFolders} className="text-white opacity-60 ml-[9vw] cursor-pointer" />
+                    </div>
+                    <hr className="opacity-90 border-t-[1px] border-solid border-[#3D3D3D]" />
+                    {folderData.map((folder, index) => (
+                        <div key={index}>
+                            <div
+                                className="left-header-content h-[4.091vh] flex items-center text-white cursor-pointer ml-[2px]"
+                                onClick={() => toggleFilesVisibility(index)}
+                            >
+                                <IoIosArrowForward
+                                    className={`text-white opacity-60 ml-1 transform ${folder.isOpen ? 'rotate-90' : ''
+                                        }`}
+                                />
+                                <span className="text-white opacity-60 ml-1">{folder.name}</span>
+                            </div>
+                            {folder.isOpen && (
+                                <>
+                                    {folder.files.map((file, fileIndex) => (
+                                        <div
+                                            key={fileIndex}
+                                            className="file-box flex items-center ml-[5px] mr-[5px] mb-[5px] cursor-pointer"
+                                        >
+                                            <span className="text-white opacity-60 ml-6">{file}</span>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                            <hr className="opacity-40 border-t-[1px] border-solid border-[#3D3D3D]" />
+                        </div>
+                    ))}
                 </div>
 
                 {/* Right panel */}
@@ -98,8 +165,8 @@ function ProjectPage() {
                 </div>
             </div>
 
-        {/* Bot Panel */}
-        {isPanelVisible && <BotPanel onClose={toggleBotPanel} />}
+            {/* Bot Panel */}
+            {isPanelVisible && <BotPanel onClose={toggleBotPanel} />}
 
         </div>
     );
