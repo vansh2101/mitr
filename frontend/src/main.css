@@ -222,3 +222,28 @@
     border-radius: 10px;
     background-color: #949be266;
 }
+
+
+
+.image-panel {
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-panel.hidden {
+    transform: translateX(100%);
+}
+
+.imagePanel {
+    background-color: #455C6C;
+    border-radius: 20px;
+}
+
+.image-header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.image-input {
+    border-radius: 10px;
+}

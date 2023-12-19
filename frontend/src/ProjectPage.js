@@ -14,8 +14,11 @@ import vector from '../src/assets/vector.svg';
 
 import { IoIosArrowForward } from "react-icons/io";
 import { FiMinusSquare } from "react-icons/fi";
+import { FaRegSave } from "react-icons/fa";
+import { FaImage } from "react-icons/fa6";
 
 import BotPanel from "./components/BotPanel";
+import ImagePanel from "./components/ImagePanel";
 
 const files = {
     "script.js": {
@@ -38,7 +41,8 @@ const files = {
 function ProjectPage() {
     const [fileName, setFileName] = useState("script.js");
     const file = files[fileName];
-    const [isPanelVisible, setPanelVisibility] = useState(false);
+    const [isBotPanelVisible, setBotPanelVisibility] = useState(false);
+    const [isImagePanelVisible, setImagePanelVisibility] = useState(false);
     const [folderData, setFolderData] = useState([
         {
             name: 'Folder 1',
@@ -74,7 +78,11 @@ function ProjectPage() {
     };
 
     const toggleBotPanel = () => {
-        setPanelVisibility(!isPanelVisible);
+        setBotPanelVisibility(!isBotPanelVisible);
+    }
+    
+    const toggleImagePanel = () => {
+        setImagePanelVisibility(!isImagePanelVisible);
     }
 
     return (
@@ -92,8 +100,8 @@ function ProjectPage() {
                 <div className="folder-1 w-[3.042vw] ml-[2.513vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
                     <img className="w-[1.653vw]" src={folder} alt="folder" />
                 </div>
-                <div className="folder-2 w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
-                    <img className="w-[1.653vw]" src={folder} alt="folder" />
+                <div onClick={toggleImagePanel} className="folder-2 w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
+                    <FaImage className="w-[1.653vw] text-[#8BC3EB]" size={23}/>
                 </div>
                 <div onClick={toggleBotPanel} className="bot w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
                     <img className="w-[1.653vw]" src={bot} alt="bot" />
@@ -102,7 +110,7 @@ function ProjectPage() {
                     <img className="w-[1.653vw]" src={debug} alt="debug" />
                 </div>
                 <div className="search ml-[1.190vw] w-[44.576vw] flex items-center">
-                    <img className="pl-[1.256vw] cursor-pointer" src={search} alt="search" />
+                    <img onClick={() => console.log('Search Icon Clicked')} className="pl-[1.256vw] cursor-pointer" src={search} alt="search" />
                     <input className="search-field text-white w-[39.880vw] h-[2.443vh] ml-[0.859vw]" placeholder="Type commands here..." />
                 </div>
                 <div className="run ml-[1.388vw] w-[8.399vw] pl-[1.719vw] pr-[0.992vw] flex items-center justify-center cursor-pointer">
@@ -151,13 +159,14 @@ function ProjectPage() {
 
                 {/* Right panel */}
                 {/* <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]"> */}
-                <div className={`rightPanel ${isPanelVisible ? 'w-[37.5vw]' : 'w-[76.058vw]'} h-[84.215vh] ml-[1.058vw]`}>
+                <div className={`rightPanel ${(isBotPanelVisible || isImagePanelVisible) ? 'w-[37.5vw]' : 'w-[76.058vw]'} h-[84.215vh] ml-[1.058vw]`}>
                     <div className="right-header h-[5.091vh] flex items-center">
                         {/* <img className="ml-[1.058vw]" src={LanguageIcon} alt="LanguageIcon"/> */}
                         {/* <p className="ml-[0.529vw]">App.js</p> */}
                         <button className="JavaScript ml-[1.190vw]" onClick={() => setFileName("script.js")}>App.js</button>
                         <button className="HTML ml-[1.190vw]" onClick={() => setFileName("index.html")}>Index.html</button>
                         <button className="CSS ml-[1.190vw]" onClick={() => setFileName("styles.css")}>Styles.css</button>
+                        <FaRegSave onClick={() => console.log('Saved!')} className={`text-white opacity-60 ${(isBotPanelVisible || isImagePanelVisible) ? 'ml-[16.5vw]' : 'ml-[55vw]'} cursor-pointer`} size={25} />
                     </div>
                     <div className="editor mt-3">
                         <Editor height="75.105vh" theme="vs-dark" path={file.name} defaultLanguage={file.language} defaultValue={file.value} />
@@ -166,7 +175,8 @@ function ProjectPage() {
             </div>
 
             {/* Bot Panel */}
-            {isPanelVisible && <BotPanel onClose={toggleBotPanel} />}
+            {isBotPanelVisible && <BotPanel onClose={toggleBotPanel} />}
+            {isImagePanelVisible && <ImagePanel onClose={toggleImagePanel} />}
 
         </div>
     );
