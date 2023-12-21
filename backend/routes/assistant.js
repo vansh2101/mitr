@@ -31,5 +31,29 @@ router.post('/msg', async (req, res) => {
 })
 
 
+router.post('/image', async (req, res) => {
+    const {prompt} = req.body
+    
+    const response = await openai.chat.completions.create({
+        model: "gpt-4-vision-preview",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: "Write html starting code for this image" },
+              {
+                type: "image_url",
+                image_url: {
+                  "url": prompt,
+                },
+              },
+            ],
+          },
+        ],
+      });
+      res.json(response.choices[0]);
+})
+
+
 //? Exporting Routes
 module.exports = router

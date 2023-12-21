@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import './main.css'
 
 import Editor from '@monaco-editor/react';
@@ -20,7 +20,9 @@ import { FaImage } from "react-icons/fa6";
 import BotPanel from "./components/BotPanel";
 import ImagePanel from "./components/ImagePanel";
 
-const files = {
+import { query, query_complete } from "./scripts/codeAssistant";
+
+var files = {
     "script.js": {
         name: "script.js",
         language: 'javascript',
@@ -39,8 +41,14 @@ const files = {
 };
 
 function ProjectPage() {
+
+    // query({"inputs": "write javascript code to add 2 numbers"}).then((response) => {
+    //     console.log(JSON.stringify(response));
+    // });
+
     const [fileName, setFileName] = useState("script.js");
     const file = files[fileName];
+    const editorRef = useRef(null);
     const [isBotPanelVisible, setBotPanelVisibility] = useState(false);
     const [isImagePanelVisible, setImagePanelVisibility] = useState(false);
     const [folderData, setFolderData] = useState([
@@ -66,6 +74,10 @@ function ProjectPage() {
         },
     ]);
 
+    const [botPanelInput, setBotPanelInput] = useState('');
+    const [inputVal, setInputVal] = useState('');
+    const [msgs, setMsgs] = useState([{role: 'bot', msg: 'Hello!'}]);
+
     const toggleFilesVisibility = (index) => {
         const updatedFolders = [...folderData];
         updatedFolders[index].isOpen = !updatedFolders[index].isOpen;
@@ -78,12 +90,62 @@ function ProjectPage() {
     };
 
     const toggleBotPanel = () => {
+        setMsgs([{role: 'bot', msg: 'Hello!'}])
         setBotPanelVisibility(!isBotPanelVisible);
     }
     
     const toggleImagePanel = () => {
         setImagePanelVisibility(!isImagePanelVisible);
     }
+
+
+    const ask_gpt = () => {
+        fetch('http://localhost:8000/assistant/msg', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({"prompt": botPanelInput}),
+        }).then(res => res.json())
+        .then(data => {
+            setMsgs([...msgs, {role: 'user', msg: botPanelInput}, {role: 'bot', msg: data}])
+            setBotPanelInput('')
+        })
+    }
+
+    function handleEditorDidMount(editor, monaco) {
+        editorRef.current = editor;
+      }
+
+    const ask_assistant = () => {
+        query({"inputs": inputVal}).then((response) => {
+            console.log(response)
+            const res = JSON.stringify(response[0].generated_text).slice(inputVal.length + 1, );
+            if (res.slice(0,2) !== '\n' || res.slice(0,2) !== '``') {
+                var result = '//' + res
+            }
+
+            result = result.replace(/\\n/g, '\n').replace(/```/g, '//').replace(/\\/g, '');
+            editorRef.current.setValue(result);
+        });
+    }
+
+    const complete_code = (event) => {
+        if (event.keyCode !== 9) { return }
+
+        query_complete({"inputs": editorRef.current.getValue()}).then((response) => {
+            console.log(response)
+            const res = JSON.stringify(response[0].generated_text);
+
+            const result = res.replace(/\\n/g, '\n').replace(/```/g, '//').replace(/\\/g, '');
+
+            editorRef.current.setValue(result);
+            console.log(response);
+        });
+        // alert('code changed')
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', complete_code)
+    }, [])
 
     return (
         <div className="main h-screen w-screen">
@@ -110,8 +172,8 @@ function ProjectPage() {
                     <img className="w-[1.653vw]" src={debug} alt="debug" />
                 </div>
                 <div className="search ml-[1.190vw] w-[44.576vw] flex items-center">
-                    <img onClick={() => console.log('Search Icon Clicked')} className="pl-[1.256vw] cursor-pointer" src={search} alt="search" />
-                    <input className="search-field text-white w-[39.880vw] h-[2.443vh] ml-[0.859vw]" placeholder="Type commands here..." />
+                    <img onClick={ask_assistant} className="pl-[1.256vw] cursor-pointer" src={search} alt="search" />
+                    <input className="search-field text-white w-[39.880vw] h-[2.443vh] ml-[0.859vw]" placeholder="Type commands here..." value={inputVal} onChange={e => setInputVal(e.target.value)} />
                 </div>
                 <div className="run ml-[1.388vw] w-[8.399vw] pl-[1.719vw] pr-[0.992vw] flex items-center justify-center cursor-pointer">
                     <img src={run} alt="run" />
@@ -169,13 +231,13 @@ function ProjectPage() {
                         <FaRegSave onClick={() => console.log('Saved!')} className={`text-white opacity-60 ${(isBotPanelVisible || isImagePanelVisible) ? 'ml-[16.5vw]' : 'ml-[55vw]'} cursor-pointer`} size={25} />
                     </div>
                     <div className="editor mt-3">
-                        <Editor height="75.105vh" theme="vs-dark" path={file.name} defaultLanguage={file.language} defaultValue={file.value} />
+                        <Editor height="75.105vh" theme="vs-dark" path={file.name} defaultLanguage={file.language} defaultValue={file.value} onMount={handleEditorDidMount} onChange={complete_code} />
                     </div>
                 </div>
             </div>
 
             {/* Bot Panel */}
-            {isBotPanelVisible && <BotPanel onClose={toggleBotPanel} />}
+            {isBotPanelVisible && <BotPanel value={botPanelInput} setValue={setBotPanelInput} onSend={ask_gpt} msgs={msgs} />}
             {isImagePanelVisible && <ImagePanel onClose={toggleImagePanel} />}
 
         </div>
