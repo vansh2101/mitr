@@ -116,6 +116,10 @@
     background-color: #08bf31e6;
     border-radius: 15px;
 }
+.btn:hover,
+.plus:hover {
+    background-color: #0de93c;
+}
 
 .workspace {
     color: #b5b5b5;

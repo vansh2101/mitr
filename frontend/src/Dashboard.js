@@ -86,19 +86,19 @@ function Dashboard() {
                 <div className="label ml-[5.092vw] mt-[31.975vh]">
                     <p className="create-code-faster ml-[3.505vw]">
                         <span className="heading">
-                            Create&nbsp;&nbsp; &lt;&nbsp;/&nbsp;&gt;&nbsp;&nbsp; Code
+                            Create&nbsp; &lt;&nbsp;/&nbsp;&gt;&nbsp; Code
                             <br />
                             &nbsp;&nbsp;&nbsp;Faster with{" "}
                         </span>
                         <span className="mitr">mitr</span>
                     </p>
 
-                    <p className="help h-[7.942vh] w-[35.383vw] text-center mt-1">
+                    <p className="help h-[7.942vh] w-[35.383vw] text-center mt-1 opacity-60">
                         Need help? Create MERN focused projects with your mitr to get complete code assistance to build faster
                     </p>
 
-                    <button onClick={openModal} className="btn h-[5.90vh] w-[19.179vw] mt-[3.156vh] ml-[8.068vw]">
-                        + Create new workspace
+                    <button onClick={openModal} className="btn h-[5.90vh] w-[19.179vw] mt-[3.156vh] ml-[8.068vw] font-bold">
+                        + &nbsp; Create new workspace
                     </button>
                 </div>
                 {isModalOpen && (
