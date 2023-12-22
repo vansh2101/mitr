@@ -167,12 +167,17 @@
     border-radius: 10px;
 }
 
-.headingRA {
+.headingRA,
+.mitr2 {
     color: transparent;
     font-family: "Manrope-ExtraBold", Helvetica;
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 700;
     color: #b5b5b5;
+}
+
+.mitr2 {
+    color: #8bc3eb;
 }
 
 .logo-name {
