@@ -78,6 +78,12 @@ function ProjectPage() {
     const [inputVal, setInputVal] = useState('');
     const [msgs, setMsgs] = useState([{role: 'bot', msg: 'Hello!'}]);
 
+    const [isLeftPanelVisible, setLeftPanelVisibility] = useState(true);
+
+    const toggleLeftPanel = () => {
+        setLeftPanelVisibility(!isLeftPanelVisible);
+    };
+
     const toggleFilesVisibility = (index) => {
         const updatedFolders = [...folderData];
         updatedFolders[index].isOpen = !updatedFolders[index].isOpen;
@@ -159,7 +165,7 @@ function ProjectPage() {
                     <img src={vector} alt="vector" />
                     <p className="pl-[1.190vw]">Sample Project</p>
                 </div>
-                <div className="folder-1 w-[3.042vw] ml-[2.513vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
+                <div onClick={toggleLeftPanel} className="folder-1 w-[3.042vw] ml-[2.513vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
                     <img className="w-[1.653vw]" src={folder} alt="folder" />
                 </div>
                 <div onClick={toggleImagePanel} className="folder-2 w-[3.042vw] ml-[1.190vw] p-[0.727vw] flex items-center justify-center cursor-pointer">
@@ -220,11 +226,8 @@ function ProjectPage() {
                 </div>
 
                 {/* Right panel */}
-                {/* <div className="rightPanel w-[76.058vw] h-[84.215vh] ml-[1.058vw]"> */}
                 <div className={`rightPanel ${(isBotPanelVisible || isImagePanelVisible) ? 'w-[37.5vw]' : 'w-[76.058vw]'} h-[84.215vh] ml-[1.058vw]`}>
                     <div className="right-header h-[5.091vh] flex items-center">
-                        {/* <img className="ml-[1.058vw]" src={LanguageIcon} alt="LanguageIcon"/> */}
-                        {/* <p className="ml-[0.529vw]">App.js</p> */}
                         <button className="JavaScript ml-[1.190vw]" onClick={() => setFileName("script.js")}>App.js</button>
                         <button className="HTML ml-[1.190vw]" onClick={() => setFileName("index.html")}>Index.html</button>
                         <button className="CSS ml-[1.190vw]" onClick={() => setFileName("styles.css")}>Styles.css</button>

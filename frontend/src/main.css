@@ -217,19 +217,19 @@
 }
 
 .botPanel {
-    background-color: #949be266;
+    background-color: #1E1E1E;
     border-radius: 20px;
 }
 
 .bot-header {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    background-color: #949be266;
+    background-color: #292929;
 }
 
 .bot-input {
     border-radius: 10px;
-    background-color: #949be266;
+    background-color: #292929;
 }
 
 

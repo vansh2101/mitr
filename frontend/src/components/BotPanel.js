@@ -8,7 +8,7 @@ function BotPanel({ value, setValue, onSend, msgs }) {
     return (
         <div className="bot-panel top-0 right-0 fixed  mt-[11.099vh] ml-[2.843vw] h-[84.215vh]">
             {/* Panel Content */}
-            <div className="botPanel w-[37.5vw] h-[84.215vh] mr-[2.91vw]">
+            <div className="botPanel w-[31.875vw] h-[84.215vh] mr-[2.91vw]">
                 <div className="bot-header h-[5.091vh]"></div>
 
                 {/* Chat */}

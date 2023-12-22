@@ -10,7 +10,7 @@ function ImagePanel({ onClose }) {
         <div className="image-panel top-0 right-0 fixed  mt-[11.099vh] ml-[2.843vw] h-[84.215vh]">
             {/* Panel Content */}
             {/* <button onClick={onClose}>Close Panel</button> */}
-            <div className="imagePanel w-[37.5vw] h-[84.215vh] mr-[2.91vw]">
+            <div className="imagePanel w-[31.875vw] h-[84.215vh] mr-[2.91vw]">
                 <div className="image-header h-[5.091vh] bg-[#8BC3EB] opacity-60"></div>
                 <div className="flex items-center justify-center mt-[24vh]">
 
