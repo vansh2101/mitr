@@ -226,7 +226,7 @@ function ProjectPage() {
                 </div>
 
                 {/* Right panel */}
-                <div className={`rightPanel ${(isBotPanelVisible || isImagePanelVisible) ? 'w-[37.5vw]' : 'w-[76.058vw]'} h-[84.215vh] ml-[1.058vw]`}>
+                <div className={`rightPanel ${(isBotPanelVisible || isImagePanelVisible) ? 'w-[43.25vw]' : 'w-[76.058vw]'} h-[84.215vh] ml-[1.058vw]`}>
                     <div className="right-header h-[5.091vh] flex items-center">
                         <button className="JavaScript ml-[1.190vw]" onClick={() => setFileName("script.js")}>App.js</button>
                         <button className="HTML ml-[1.190vw]" onClick={() => setFileName("index.html")}>Index.html</button>
