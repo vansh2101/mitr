@@ -5,9 +5,20 @@ import rightP from './assets2/rightP.png';
 import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import { MdOutlineAccountCircle } from "react-icons/md";
+import { github_login, logout } from "./scripts/dbFunc";
 
 
 function Landing() {
+    if (localStorage.getItem('user')) window.location.href = '/dashboard'
+
+
+    const login = () => {
+        github_login()
+    }
+
+
+
+
     return (
         <div className='main-screen h-screen w-screen relative'>
             {/* <img src={bg} alt='bg' className='h-screen w-screen'/> */}
@@ -93,7 +104,7 @@ function Landing() {
                     </h1>
 
                     <p className='para-1 w-[19.801vw] mt-[3.636vh]'>Don&apos;t skip design. Learn design and code, by building real apps with React and Swift. Complete courses about the best tools.</p>
-                    <button className='btn-X mt-[3.636vh] cursor-pointer rounded-2xl px-6 box-border py-2'>
+                    <button onClick={login} className='btn-X mt-[3.636vh] cursor-pointer rounded-2xl px-6 box-border py-2'>
                         <div className='btn-content flex items-center'>
                             <div className='btn-ring w-[3.630vw] h-[6.66vh] flex items-center'>
                                 {/* <img src={logo} alt="logo"/> */}
