@@ -7,11 +7,12 @@ import { BrowserRouter , Route,  Routes } from 'react-router-dom';
 import firebase from 'firebase/compat/app'
 import {firebaseConfig} from './scripts/firebaseConfig'
 
-//? Pages
+// Pages
 import ProjectPage from './ProjectPage';
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
 import Workspace from './Workspace';
+import Landing from './Landing';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,9 +23,9 @@ root.render(
   
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LoginPage />} />
+          <Route path='/' element={<Landing />} />
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/project' element={<ProjectPage />}/>
+          {/* <Route path='/project' element={<ProjectPage />}/> */}
           <Route path='/workspace' element={<Workspace />}/>
         </Routes>
       </BrowserRouter>
