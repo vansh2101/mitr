@@ -74,6 +74,48 @@ router.post('/code', async (req, res) => {
 })
 
 
+router.post('/debug', async (req, res) => {
+  const {prompt} = req.body
+  const thread = await openai.beta.threads.create();
+
+  
+
+  const message = await openai.beta.threads.messages.create(
+    thread.id,
+    {
+      role: "user",
+      content: prompt,
+    }
+  );
+
+  const run = await openai.beta.threads.runs.create(
+    thread.id,
+    { 
+      assistant_id: 'asst_pZndVOmJD644AN4rSDFdDjWg'
+    }
+  );
+
+  var runs = await openai.beta.threads.runs.retrieve(
+    thread.id,
+    run.id
+  );
+
+  while (runs.status === 'in_progress') {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    runs = await openai.beta.threads.runs.retrieve(
+      thread.id,
+      run.id
+    );
+  }
+
+  const messages = await openai.beta.threads.messages.list(
+    thread.id
+  );
+
+  res.json(messages.data[0].content[0].text.value)
+})
+
+
 router.post('/generate', async (req, res) => {
   const {prompt} = req.body
   const thread = await openai.beta.threads.create();

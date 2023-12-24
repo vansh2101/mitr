@@ -3,7 +3,7 @@ import Btn from './components/Btn'
 import logo from '../src/assets/logo.png';
 import Editor from '@monaco-editor/react'
 import { Link } from 'react-router-dom'
-import { code_completion, ask_gpt, img_2_code, text_2_code } from './scripts/codeAssistant';
+import { code_completion, ask_gpt, img_2_code, text_2_code, debug_code } from './scripts/codeAssistant';
 
 //? Icons
 import { IoBugOutline } from "react-icons/io5";
@@ -43,6 +43,8 @@ function Workspace() {
     const [msgInput, setMsgInput] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [ask, setAsk] = useState('');
+    const [errors, setErrors] = useState([]);
+    const [debugErrors, setDebugErrors] = useState([]);
 
     const toggleFilesVisibility = (index) => {
         const updatedFolders = [...folderData];
@@ -99,6 +101,24 @@ function Workspace() {
         })
     }
 
+    const get_errors = (e) => {
+        const err = e
+        setErrors(err)
+    }
+
+    const debug = () => {
+        if (debugBox) { return }
+        const code = editorRef.current.getValue().split('\n')
+        let arr = []
+        errors.map((error) => {
+            debug_code(code[error.startLineNumber-1]).then((response) => {
+                arr.push({line: error.startLineNumber, error: response})
+            })
+        })
+        console.log(arr)
+        setDebugErrors(arr)
+    }
+
     useEffect(() => {
         document.addEventListener('keydown', complete_code)
     }, [])
@@ -115,7 +135,7 @@ function Workspace() {
 
             <Btn text='Assistant' icon={<GoDependabot color='#111111' size={16} />} onClick={()=> setAssistantBox(!assistantBox)}/>
             <Btn text='Generate Code' icon={<FaCode color='#111111' size={16} className='opacity-75' />} onClick={()=> setGenerateBox(!generateBox)}/>
-            <Btn text='Debug' icon={<IoBugOutline color='#111111' size={16} />} onClick={()=> setDebugBox(!debugBox)}/>
+            <Btn text='Debug' icon={<IoBugOutline color='#111111' size={16} />} onClick={()=> {setDebugBox(!debugBox); debug()}}/>
             <Btn text='Image to Code ' icon={<FaImage color='#111111' size={16} className='opacity-75' />} onClick={()=> setImgBox(!imgBox)}/>
         </div>
 
@@ -179,7 +199,7 @@ function Workspace() {
                 </div>
 
                 <div id='editor' className='flex-1 w-full py-1 bg-[#1e1e1e]'>
-                    <Editor height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage='javascript' defaultPath='index.js' defaultValue='//Welcome to Javascript' onMount={handleEditorDidMount} />
+                    <Editor height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage='javascript' defaultPath='index.js' defaultValue='//Welcome to Javascript' onMount={handleEditorDidMount} onValidate={e => get_errors(e)} />
                 </div>
             </div>
         </div>
@@ -195,19 +215,19 @@ function Workspace() {
             </div>
 
             <div className='flex-1 overflow-y-auto'>
-            {[1,2,3].map((item, index) => 
+            {debugErrors.map((item, index) => 
                 <>
                 <div className='flex items-center justify-between p-4 border-b border-white/30 cursor-pointer' onClick={() => {toggleErrorVisibility(index)}}>
                     <div className='flex items-center gap-2 text-white/80 font-semibold text-sm'>
                         <GoDotFill color='#F46841' size={14} />
-                        Error Line {item}
+                        Error Line {item.line}
                     </div>
                     <FaChevronRight size={14} color='#808080' id={`error${index}`} className='duration-200' />
                 </div>
 
                 <div className='px-4 py-3 box-border hidden' id={`error-para-${index}`}>
                     <p className='text-white/60 text-[13px]'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sagittis interdum libero, vitae pharetra nibh. Nulla vel tincidunt lorem. Integer pulvinar massa at libero elementum interdum. Maecenas placerat sit amet erat et dapibus. Aenean aliquam vitae tellus nec cursus. Phasellus in sagittis erat.
+                        {item.error}
                     </p>
                 </div>
                 </>
