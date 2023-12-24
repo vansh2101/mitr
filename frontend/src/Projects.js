@@ -80,19 +80,20 @@ function Projects() {
 
 
     return(
-        <div className="projects-main h-screen w-screen">
+        <div className="projects-main h-screen w-screen relative">
             {/* Header */}
-            <div className="projects-header h-[6.234vh] bg-[#171717] flex items-center relative">
-                <span className='text-[#B7B7B7] absolute text-[28px] left-[1.322vw]'>mitr</span>
-                <AiOutlineInfoCircle size={26} className='text-[#B7B7B7] right-[1.322vw] absolute cursor-pointer' />
+            <div className="projects-header h-[6.234vh] bg-transparent flex items-center relative">
+                {/* <span className='text-[#B7B7B7] absolute text-[28px] left-[1.322vw]'>mitr</span>
+                <AiOutlineInfoCircle size={26} className='text-[#B7B7B7] right-[1.322vw] absolute cursor-pointer' /> */}
             </div>
 
 
             {/* Name */}
             <div className='projects-name h-[8.841vh] w-full top-[14.736vh] absolute'>
                 <div className='projects-logo flex items-center justify-center h-full'>
-                    <img src={logo} alt='logo' />
-                    <span className='text-[#B7B7B7] text-[50px] ml-3'>mitr</span>
+                    {/* <img src={logo} alt='logo' />
+                    <span className='text-[#B7B7B7] text-[50px] ml-3'>mitr</span> */}
+                    <span className='text-[#B7B7B7] text-[50px] font-extrabold'>My&nbsp; Workspaces</span>
                 </div>
 
             </div>
@@ -101,14 +102,16 @@ function Projects() {
             {/* Workspaces */}
             <div className='projects-workspaces mt-[31.286vh] h-[25.165vh] flex justify-center'>
 
-                <div onClick={() => handleArrowClick('backward')} className='arrow-key w-[3.5125vw] hover:bg-[#171717] hover:opacity-50 h-full flex items-center justify-center'>
+                <div onClick={() => handleArrowClick('backward')} className='arrow-key w-[3.5125vw] h-full flex items-center justify-center'>
                     <IoIosArrowBack className='text-[#B7B7B7] hover:scale-125 cursor-pointer' size={30} />
                 </div>
 
+
+                {/* Workspaces */}
                 <div className="workspace-container" ref={containerRef}>
                 {workspaces.slice(currentIndex, currentIndex + 4).map((item, key) =>
                 <Link to="/workspace" key={key}>
-                        <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#0f0e4780] rounded-[20px] hover:border-t-4 hover:border-[#8C9AA6]'>
+                        <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#08073880] hover:bg-[#08073880]/40 rounded-[20px]'>
                     <div className='flex justify-center pt-[5.534vh]'>
                         <img className='h-[6.534vh]' src={(item.type == 'react' || item.type == 'React') ?  reactIcon : nodeIcon} alt='JSIcon'/>
                     </div>
@@ -120,36 +123,9 @@ function Projects() {
                 </Link>
                 )}
                 </div>
-                {/* <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#2B2B2B] hover:border-t-4 hover:border-[#8C9AA6]'>
-                    <div className='flex justify-center mt-[5.534vh]'>
-                        <img className='h-[6.534vh]' src={JSIcon} alt='JSIcon'/>
-                    </div>
-                    <div className='mt-4'>
-                        <p className='projects-head flex justify-center text-[#b5b5b5] text-[24px] font-[550]'>Food Website</p>
-                        <p className='projects-time flex justify-center text-[#b5b5b5bf] text-[16px] font-[400]'>23-11-2023</p>
-                    </div>
-                </div>
-                <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#2B2B2B] hover:border-t-4 hover:border-[#8C9AA6]'>
-                    <div className='flex justify-center mt-[5.534vh]'>
-                        <img className='h-[6.534vh]' src={JSIcon} alt='JSIcon'/>
-                    </div>
-                    <div className='mt-4'>
-                        <p className='projects-head flex justify-center text-[#b5b5b5] text-[24px] font-[550]'>Food Website</p>
-                        <p className='projects-time flex justify-center text-[#b5b5b5bf] text-[16px] font-[400]'>23-11-2023</p>
-                    </div>
-                </div>
-                <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#2B2B2B] hover:border-t-4 hover:border-[#8C9AA6]'>
-                    <div className='flex justify-center mt-[5.534vh]'>
-                        <img className='h-[6.534vh]' src={JSIcon} alt='JSIcon'/>
-                    </div>
-                    <div className='mt-4'>
-                        <p className='projects-head flex justify-center text-[#b5b5b5] text-[24px] font-[550]'>Food Website</p>
-                        <p className='projects-time flex justify-center text-[#b5b5b5bf] text-[16px] font-[400]'>23-11-2023</p>
-                    </div>
-                </div> */}
                 
 
-                <div onClick={openModal} className='projects-ws-plus w-[13.425vw] h-full rounded-[20px] mx-[1.322vw] bg-[#ffffff] pt-[75px] hover:border-[#8C9AA6] hover:border-2 opacity-20 hover:opacity-40 cursor-pointer'>
+                <div onClick={openModal} className='projects-ws-plus w-[13.425vw] h-full rounded-[20px] mx-[1.322vw] bg-[#ffffff] pt-[75px] hover:border-[#8C9AA6] hover:border-2 opacity-80 hover:opacity-100 cursor-pointer'>
                     <div>
                         <FaRegPlusSquare className=' text-black  m-auto' size={40} />
                         <div className=' w-full flex items-center justify-center mt-4'>
@@ -162,11 +138,10 @@ function Projects() {
                 </div>
 
 
-                <div onClick={() => handleArrowClick('forward')} className='arrow-key w-[3.5125vw] hover:bg-[#171717] hover:opacity-50 h-full flex items-center justify-center'>
+                <div onClick={() => handleArrowClick('forward')} className='arrow-key w-[3.5125vw] h-full flex items-center justify-center'>
                     <IoIosArrowForward className='text-[#B7B7B7] hover:scale-125 cursor-pointer' size={30} />
                 </div>
             </div>
-
 
             {isModalOpen && (
                 <WorkspaceModal
@@ -178,6 +153,7 @@ function Projects() {
                     setWorkspaceType={setWorkspaceType}
                 />
             )}
+
         </div>
 
 

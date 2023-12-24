@@ -1,0 +1,94 @@
+/* .model {
+    position: relative;
+        max-width: 960px;
+        width: 100%;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 360px auto;
+        gap: 20px;
+        justify-items: center;
+        background: rgba(50, 61, 109, 0.5);
+        box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 0px 0.5px inset;
+        backdrop-filter: blur(40px);
+        border-radius: 20px;
+        opacity: 0;
+        animation: 1s cubic-bezier(0.075, 0.82, 0.165, 1) 0s 1 normal forwards running jkLqKc;
+        background-color: aqua;
+} */
+@keyframes bDTdTe {
+    0% {
+        backdrop-filter: blur(0px) saturate(100%);
+    }    
+    100% {
+        backdrop-filter: blur(20px) saturate(120%);
+    }
+}
+
+.modal-ws {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px) saturate(100%);
+    -webkit-box-pack: center;
+    animation: 1s ease 0s 1 normal forwards running bDTdTe
+}
+
+@keyframes jkLqKc {
+    0% {
+        transform: translateY(-100px) scale(0.8);
+        opacity: 0;
+    }   
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-ws-content {
+    background: rgba(50, 61, 109, 0.5);
+    box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 0px 0.5px inset;
+    backdrop-filter: blur(40px);
+    opacity: 0;
+    animation: 1s cubic-bezier(0.075, 0.82, 0.165, 1) 0s 1 normal forwards running jkLqKc;
+}
+
+.modal-ws-close-btn {
+    -webkit-box-pack: center;
+        place-content: center;
+        background: linear-gradient(360deg, rgba(99, 106, 150, 0.4) 0%, rgba(182, 186, 214, 0.5) 100%);
+        box-sizing: border-box;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 20px 40px, rgba(255, 255, 255, 0.3) 0px 0px 0px 0.5px inset;
+        backdrop-filter: blur(40px);
+}
+
+.modal-ws-left {
+    -webkit-box-pack: center;
+        place-content: center;
+        background-image: url(../../assets2/wsLeft.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+
+.ws-form-email-input {
+    background: linear-gradient(rgba(99, 106, 150, 0.4) 0%, rgba(182, 186, 214, 0.25) 100%);
+        border: none;
+        border-radius: 30px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 20px 40px, rgba(255, 255, 255, 0.3) 0px 0px 0px 0.5px inset;
+        box-sizing: border-box;
+        padding: 10px 42px 10px 56px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 130%;
+        color: rgb(255, 255, 255);
+}
+
+
+.ws-form-submit-btn {
+    background: linear-gradient(91.4deg, rgb(47, 184, 255) 0%, rgb(158, 236, 217) 100%);
+        border-radius: 30px;
+        box-shadow: rgba(147, 231, 221, 0.3) 0px 20px 40px;
+        display: grid;
+        text-align: center;
+        position: relative;
+        -webkit-box-pack: center;
+        justify-content: center;
+}
