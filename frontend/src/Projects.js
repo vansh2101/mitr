@@ -78,34 +78,15 @@ function Projects() {
 
 
 
-    // useEffect(() => {
-    //     // Assuming each workspace takes 25% of the width, adjust the percentage accordingly
-    //     const workspaceWidthPercentage = 25;
-
-    //     // Calculate the translation value based on the currentIndex
-    //     const translationValue = -currentIndex * workspaceWidthPercentage;
-
-    //     // Apply the transform style to the container
-    //     containerRef.current.style.transform = `translateX(${translationValue}%)`;
-    // }, [currentIndex]);
-
-
-
-
-
-
-
-
-
-
 
     return(
-        <div className="projects-main h-screen w-screen bg-[#212121]">
+        <div className="projects-main h-screen w-screen">
             {/* Header */}
             <div className="projects-header h-[6.234vh] bg-[#171717] flex items-center relative">
                 <span className='text-[#B7B7B7] absolute text-[28px] left-[1.322vw]'>mitr</span>
-                <AiOutlineInfoCircle size={26} className='text-[#B7B7B7] right-[1.322vw] absolute' />
+                <AiOutlineInfoCircle size={26} className='text-[#B7B7B7] right-[1.322vw] absolute cursor-pointer' />
             </div>
+
 
             {/* Name */}
             <div className='projects-name h-[8.841vh] w-full top-[14.736vh] absolute'>
@@ -126,14 +107,14 @@ function Projects() {
 
                 <div className="workspace-container" ref={containerRef}>
                 {workspaces.slice(currentIndex, currentIndex + 4).map((item, key) =>
-                <Link to="/project" key={key}>
-                <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#2B2B2B] hover:border-t-4 hover:border-[#8C9AA6]'>
+                <Link to="/workspace" key={key}>
+                        <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#0f0e4780] rounded-[20px] hover:border-t-4 hover:border-[#8C9AA6]'>
                     <div className='flex justify-center pt-[5.534vh]'>
                         <img className='h-[6.534vh]' src={(item.type == 'react' || item.type == 'React') ?  reactIcon : nodeIcon} alt='JSIcon'/>
                     </div>
                     <div className='mt-4'>
-                        <p className='projects-head flex justify-center text-[#b5b5b5] text-[24px] font-[550]'>{item.name}</p>
-                        <p className='projects-time flex justify-center text-[#b5b5b5bf] text-[16px] font-[400]'>{item.date}</p>
+                        <p className='projects-head flex justify-center text-white opacity-70 text-[24px] font-[550]'>{item.name}</p>
+                        <p className='projects-time flex justify-center text-white opacity-70 text-[16px] font-[400]'>{item.date}</p>
                     </div>
                 </div>
                 </Link>
@@ -168,13 +149,13 @@ function Projects() {
                 </div> */}
                 
 
-                <div onClick={openModal} className='projects-ws-plus w-[13.425vw] h-full mx-[1.322vw] bg-[#2B2B2B] pt-[75px] hover:border-[#8C9AA6] hover:border-2 opacity-20 hover:opacity-40'>
+                <div onClick={openModal} className='projects-ws-plus w-[13.425vw] h-full rounded-[20px] mx-[1.322vw] bg-[#ffffff] pt-[75px] hover:border-[#8C9AA6] hover:border-2 opacity-20 hover:opacity-40 cursor-pointer'>
                     <div>
-                        <FaRegPlusSquare className=' text-white  m-auto' size={40} />
+                        <FaRegPlusSquare className=' text-black  m-auto' size={40} />
                         <div className=' w-full flex items-center justify-center mt-4'>
                             <div>
                                 {/* <p className='text-white opacity-80 font-bold text-[20px]'>Create new</p> */}
-                                <p className='text-white  font-bold text-[20px]'>Workspace</p>
+                                <p className='text-black  font-bold text-[20px]'>Workspace</p>
                             </div>
                         </div>
                     </div>

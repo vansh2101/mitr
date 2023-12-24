@@ -1,7 +1,13 @@
+.projects-main {
+    background-image: url(./assets2/bg2.png);
+    background-size: cover;
+}
+
+
 .projects-logo span,
 .projects-header span {
-    font-family: Roboto;
-    font-style: italic;
+    /* font-family: Roboto; */
+    /* font-style: italic; */
 }
 
 
@@ -24,4 +30,13 @@
     /* Adjust the duration and easing as needed */
 }
 
-/* ... (your existing styles) */
+.project-ws {
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 0.5px inset;
+    backdrop-filter: blur(40px);
+}
+
+
+/* .projects-ws-plus {
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 0.5px inset;
+    backdrop-filter: blur(40px);
+} */
