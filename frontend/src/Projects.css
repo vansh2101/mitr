@@ -1,0 +1,42 @@
+.projects-main {
+    background-image: url(./assets2/bg2.png);
+    background-size: cover;
+}
+
+
+.projects-logo span,
+.projects-header span {
+    /* font-family: Roboto; */
+    /* font-style: italic; */
+}
+
+
+.projects-head,
+.projects-time {
+    font-family: "Manrope-Bold", Helvetica;
+}
+
+
+
+/* ... (your existing styles) */
+
+.projects-workspaces {
+    overflow: hidden;
+}
+
+.workspace-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    /* Adjust the duration and easing as needed */
+}
+
+.project-ws {
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 0.5px inset;
+    backdrop-filter: blur(40px);
+}
+
+
+/* .projects-ws-plus {
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 0.5px inset;
+    backdrop-filter: blur(40px);
+} */
