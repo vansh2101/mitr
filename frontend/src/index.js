@@ -8,11 +8,12 @@ import firebase from 'firebase/compat/app'
 import {firebaseConfig} from './scripts/firebaseConfig'
 
 // Pages
-import ProjectPage from './ProjectPage';
+// import ProjectPage from './ProjectPage';
 import Dashboard from './Dashboard';
-import LoginPage from './LoginPage';
+// import LoginPage from './LoginPage';
 import Workspace from './Workspace';
 import Landing from './Landing';
+import Projects from './Projects';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -26,6 +27,7 @@ root.render(
           <Route path='/' element={<Landing />} />
           <Route path='/dashboard' element={<Dashboard />} />
           {/* <Route path='/project' element={<ProjectPage />}/> */}
+          <Route path='/projects' element={<Projects />} />
           <Route path='/workspace' element={<Workspace />}/>
         </Routes>
       </BrowserRouter>

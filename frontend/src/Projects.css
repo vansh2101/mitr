@@ -1,0 +1,27 @@
+.projects-logo span,
+.projects-header span {
+    font-family: Roboto;
+    font-style: italic;
+}
+
+
+.projects-head,
+.projects-time {
+    font-family: "Manrope-Bold", Helvetica;
+}
+
+
+
+/* ... (your existing styles) */
+
+.projects-workspaces {
+    overflow: hidden;
+}
+
+.workspace-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    /* Adjust the duration and easing as needed */
+}
+
+/* ... (your existing styles) */
