@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import './main.css'
 
-import Editor from '@monaco-editor/react';
+import Editor from '@monaco-editor/react'
 
 import bot from '../src/assets/bot.svg';
 import logo from '../src/assets/logo.png';
@@ -149,6 +149,11 @@ function ProjectPage() {
         // alert('code changed')
     }
 
+    const get_errors = (e) => {
+        const err = e
+        console.log(err)
+    }
+
     useEffect(() => {
         document.addEventListener('keydown', complete_code)
     }, [])
@@ -181,7 +186,7 @@ function ProjectPage() {
                     <img onClick={ask_assistant} className="pl-[1.256vw] cursor-pointer" src={search} alt="search" />
                     <input className="search-field text-white w-[39.880vw] h-[2.443vh] ml-[0.859vw]" placeholder="Type commands here..." value={inputVal} onChange={e => setInputVal(e.target.value)} />
                 </div>
-                <div className="run ml-[1.388vw] w-[8.399vw] pl-[1.719vw] pr-[0.992vw] flex items-center justify-center cursor-pointer">
+                <div className="run ml-[1.388vw] w-[8.399vw] pl-[1.719vw] pr-[0.992vw] flex items-center justify-center cursor-pointer" onClick={get_errors}>
                     <img src={run} alt="run" />
                     <p className="pl-[1.190vw]">Run</p>
                 </div>
@@ -233,8 +238,8 @@ function ProjectPage() {
                         <button className="CSS ml-[1.190vw]" onClick={() => setFileName("styles.css")}>Styles.css</button>
                         <FaRegSave onClick={() => console.log('Saved!')} className={`text-white opacity-60 ${(isBotPanelVisible || isImagePanelVisible) ? 'ml-[16.5vw]' : 'ml-[55vw]'} cursor-pointer`} size={25} />
                     </div>
-                    <div className="editor mt-3">
-                        <Editor height="75.105vh" theme="vs-dark" path={file.name} defaultLanguage={file.language} defaultValue={file.value} onMount={handleEditorDidMount} onChange={complete_code} />
+                    <div className="editor mt-3" id="editor">
+                        <Editor height="75.105vh" theme="vs-dark" path={file.name} defaultLanguage={file.language} defaultValue={file.value} onMount={handleEditorDidMount} onChange={complete_code} onValidate={e => {get_errors(e)}} />
                     </div>
                 </div>
             </div>

@@ -11,6 +11,7 @@ import {firebaseConfig} from './scripts/firebaseConfig'
 import ProjectPage from './ProjectPage';
 import Dashboard from './Dashboard';
 import LoginPage from './LoginPage';
+import Workspace from './Workspace';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -24,6 +25,7 @@ root.render(
           <Route path='/' element={<LoginPage />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/project' element={<ProjectPage />}/>
+          <Route path='/workspace' element={<Workspace />}/>
         </Routes>
       </BrowserRouter>
       
