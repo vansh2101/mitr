@@ -1,6 +1,6 @@
 /* LANDING =========================================================== */
 .main-screen {
-    background-image: url(/Users/kartik/mitr/frontend/src/assets2/bg.png);
+    background-image: url(./assets2/bg.png);
     background-size: cover;
     /* border: 1px solid red; */
     /* backdrop-filter: blur(10px); */
