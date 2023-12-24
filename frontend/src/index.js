@@ -22,10 +22,10 @@ root.render(
   
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LoginPage />} />
+          {/* <Route path='/' element={<LoginPage />} /> */}
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/project' element={<ProjectPage />}/>
-          <Route path='/landing' element={<Landing />} />
+          {/* <Route path='/project' element={<ProjectPage />}/> */}
+          <Route path='/' element={<Landing />} />
         </Routes>
       </BrowserRouter>
       

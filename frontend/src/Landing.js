@@ -1,4 +1,4 @@
-import './main.css';
+import './Landing.css';
 import logo from './assets2/logo.png';
 import gitIcon from './assets2/gitIcon.svg';
 import rightP from './assets2/rightP.png';
@@ -93,7 +93,7 @@ function Landing() {
                     </h1>
 
                     <p className='para-1 w-[19.801vw] mt-[3.636vh]'>Don&apos;t skip design. Learn design and code, by building real apps with React and Swift. Complete courses about the best tools.</p>
-                    <button className='btn mt-[3.636vh] cursor-pointer rounded-2xl px-6 box-border py-2'>
+                    <button className='btn-X mt-[3.636vh] cursor-pointer rounded-2xl px-6 box-border py-2'>
                         <div className='btn-content flex items-center'>
                             <div className='btn-ring w-[3.630vw] h-[6.66vh] flex items-center'>
                                 {/* <img src={logo} alt="logo"/> */}
