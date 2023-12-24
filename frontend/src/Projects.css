@@ -3,16 +3,10 @@
     background-size: cover;
 }
 
-
-
 .projects-head,
 .projects-time {
     font-family: "Manrope-Bold", Helvetica;
 }
-
-
-
-/* ... (your existing styles) */
 
 .projects-workspaces {
     overflow: hidden;
@@ -21,16 +15,16 @@
 .workspace-container {
     display: flex;
     transition: transform 0.5s ease;
-    /* Adjust the duration and easing as needed */
 }
 
-.project-ws {
+.projects-ws {
     box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 0.5px inset;
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(20px);
+    /* background-blend-mode: overlay; */
 }
 
-
-/* .projects-ws-plus {
-    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 0.5px inset;
-    backdrop-filter: blur(40px);
-} */
+.projects-ws:hover {
+    /* background-color: rgba(255, 255, 255, 0.211); */
+    border: 0.5px solid rgba(255, 255, 255, 0.754);
+    backdrop-filter: blur(60px);
+}

@@ -144,12 +144,10 @@ h1 {
     transition: all 0.3s ease-in-out 0s;
     cursor: pointer;
     background-blend-mode: overlay;
-    /* background-color: aqua; */
     cursor: pointer;
 }
 
 .navigator-btn:hover {
-    /* background-color: #411be9ab; */
     background-color: rgba(255, 255, 255, 0.211);
     border: 0.5px solid rgba(255, 255, 255, 0.754);
 }
@@ -174,13 +172,6 @@ h1 {
 
 .heroSectionLeft img {
     border: 1px solid transparent;
-    /* Add a transparent border to apply the blur effect to */
-    /* border-radius: 5px; */
-    /* Adjust the border radius as needed */
-    /* backdrop-filter: blur(5px); */
-    /* Adjust the blur radius as needed */
-    /* -webkit-backdrop-filter: blur(10px); */
-    /* For Safari */
     -webkit-filter: drop-shadow(8px 8px 30px rgba(255, 255, 255, 0.4));
     filter: drop-shadow(8px 8px 30px rgba(255, 255, 255, 0.4));
 }

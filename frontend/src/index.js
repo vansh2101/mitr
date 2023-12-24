@@ -9,7 +9,7 @@ import {firebaseConfig} from './scripts/firebaseConfig'
 
 // Pages
 // import ProjectPage from './ProjectPage';
-import Dashboard from './Dashboard';
+// import Dashboard from './Dashboard';
 // import LoginPage from './LoginPage';
 import Workspace from './Workspace';
 import Landing from './Landing';
