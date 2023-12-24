@@ -10,8 +10,10 @@ import { logout, get_workspaces, create_workspace } from "./scripts/dbFunc";
 import WorkspaceModal from "./components/modals/WorkspaceModal";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+import {FiLogOut} from "react-icons/fi";
 
 function Projects() {
+    // logout()
     const user = localStorage.getItem('user')
     if (!user) window.location.href = '/'
 
@@ -84,7 +86,7 @@ function Projects() {
             {/* Header */}
             <div className="projects-header h-[6.234vh] bg-[#171717] flex items-center relative">
                 <span className='text-[#B7B7B7] absolute text-[28px] left-[1.322vw]'>mitr</span>
-                <AiOutlineInfoCircle size={26} className='text-[#B7B7B7] right-[1.322vw] absolute cursor-pointer' />
+                <FiLogOut size={26} className='text-[#B7B7B7] right-[1.322vw] absolute cursor-pointer' onClick={logout} />
             </div>
 
 

@@ -9,7 +9,7 @@ import { github_login, logout } from "./scripts/dbFunc";
 
 
 function Landing() {
-    if (localStorage.getItem('user')) window.location.href = '/dashboard'
+    if (localStorage.getItem('user')) window.location.href = '/projects'
 
 
     const login = () => {

@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import Btn from './components/Btn'
 import logo from '../src/assets/logo.png';
 import Editor from '@monaco-editor/react'
 import { Link } from 'react-router-dom'
+import { code_completion, ask_gpt, img_2_code, text_2_code } from './scripts/codeAssistant';
 
 //? Icons
 import { IoBugOutline } from "react-icons/io5";
@@ -12,6 +13,8 @@ import { GoDependabot, GoDotFill } from "react-icons/go"
 
 
 function Workspace() {
+
+    const editorRef = useRef(null);
 
     const [folderData, setFolderData] = useState([
         {
@@ -34,6 +37,12 @@ function Workspace() {
 
     const [debugBox, setDebugBox] = useState(false);
     const [assistantBox, setAssistantBox] = useState(false);
+    const [imgBox, setImgBox] = useState(false);
+    const [generateBox, setGenerateBox] = useState(false);
+    const [msgs, setMsgs] = useState([{role: 'bot', msg: 'Hello, I am your assistant. How can I help you?'}]);
+    const [msgInput, setMsgInput] = useState('');
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [ask, setAsk] = useState('');
 
     const toggleFilesVisibility = (index) => {
         const updatedFolders = [...folderData];
@@ -49,20 +58,65 @@ function Workspace() {
         document.getElementById(`error-para-${index}`).classList.toggle('hidden');
     }
 
+    function handleEditorDidMount(editor, monaco) {
+        editorRef.current = editor;
+      }
+
+    const complete_code = (event) => {
+        if (event.keyCode !== 9) { return }
+
+        code_completion(editorRef.current.getValue()).then((response) => {
+            const result = response.replace(/\\n/g, '\n').replace(/```javascript/g, '').replace(/```/g, '');
+
+            editorRef.current.setValue(result);
+        });
+    }
+
+    const chat = () => {
+        ask_gpt(msgInput).then((response) => {
+            setMsgs([...msgs, {role: 'user', msg:msgInput}, {role: 'bot', msg: response}]);
+            setMsgInput('');
+        })
+    }
+
+    const send_msg = () => {
+        setMsgs([...msgs, {role: 'user', msg: msgInput}]);
+        chat();
+    }
+
+    const img_2_code_func = () => {
+        img_2_code(URL.createObjectURL(selectedImage)).then((response) => {
+            document.getElementById('image-output').innerHTML = response.toString();
+            setSelectedImage(null)
+        })
+    }
+
+    const text_2_code_func = () => {
+        text_2_code(ask).then((response) => {
+            editorRef.current.setValue(response.replace(/```javascript/g, '').replace(/```jsx/g, '').replace(/```/g, ''));
+            setAsk('');
+            setGenerateBox(false);
+        })
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', complete_code)
+    }, [])
+
   return (
     <main className='flex flex-col bg-[#111111] w-full h-[100vh]'>
 
         <div className='flex px-4 py-2 gap-3 border-b border-[#ffffff]/20'>
-            <Link to='/dashboard'>
+            <Link to='/projects'>
                 <div className='border-r border-[#ffffff]/20 pr-5 mr-2'>
                     <img src={logo} className='aspect-square w-9'/>
                 </div>
             </Link>
 
             <Btn text='Assistant' icon={<GoDependabot color='#111111' size={16} />} onClick={()=> setAssistantBox(!assistantBox)}/>
-            <Btn text='Generate Code' icon={<FaCode color='#111111' size={16} className='opacity-75' />}/>
+            <Btn text='Generate Code' icon={<FaCode color='#111111' size={16} className='opacity-75' />} onClick={()=> setGenerateBox(!generateBox)}/>
             <Btn text='Debug' icon={<IoBugOutline color='#111111' size={16} />} onClick={()=> setDebugBox(!debugBox)}/>
-            <Btn text='Image to Code ' icon={<FaImage color='#111111' size={16} className='opacity-75' />}/>
+            <Btn text='Image to Code ' icon={<FaImage color='#111111' size={16} className='opacity-75' />} onClick={()=> setImgBox(!imgBox)}/>
         </div>
 
         <div className='flex flex-1'>
@@ -115,15 +169,17 @@ function Workspace() {
             </div>
 
             <div className='flex flex-col flex-1'>
-                <div className=''>
+                <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-1.5 h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e] text-[#808080] text-sm'>
                         <RiJavascriptFill fill='#FEFF3D' size={17} />
                         index.js
                     </div>
+
+                    <p className='text-white/25 text-xs font-semibold mr-5'>Press Tab for code completion</p>
                 </div>
 
                 <div id='editor' className='flex-1 w-full py-1 bg-[#1e1e1e]'>
-                    <Editor height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage='javascript' defaultPath='index.js' defaultValue='//Welcome to Javascript' />
+                    <Editor height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage='javascript' defaultPath='index.js' defaultValue='//Welcome to Javascript' onMount={handleEditorDidMount} />
                 </div>
             </div>
         </div>
@@ -174,33 +230,75 @@ function Workspace() {
             </div>
 
            <div className='flex-1 overflow-y-auto overflow-x-hidden'>
+            {msgs.map((msg, index) =>
+                <>
+                {msg.role === 'bot' ? 
+                    <div className='flex justify-start'>
+                        <div className='bg-[#BCE613] w-4/5 ml-2 mt-2 box-border p-2 rounded-lg text-wrap break-words text-[#333333]/80 text-md'>
+                            <h1 className='font-bold uppercase text-xs text-[#333333]'>
+                                Bot
+                            </h1>
+
+                            {msg.msg}
+                        </div>
+                    </div>
+                :
+                    <div className='flex justify-end'>
+                        <div className='bg-[#353535] w-4/5 mr-2 mt-2 box-border p-2 rounded-lg text-wrap break-words text-white/60 text-md'>
+                            <h1 className='font-bold uppercase text-xs text-white/80'>
+                                User
+                            </h1>
+
+                            {msg.msg}
+                        </div>
+                    </div>
+                }
+                </>
+            )}
+           </div>
+
+            <div className='p-3 border-t border-white/30 bg-[#353535] rounded-b-lg text-sm font-semibold flex justify-center'>
+                <input type='text' placeholder='Ask me anything' className='w-11/12 bg-[#282828] border border-white/30 rounded-l-md p-2 text-white/80 text-sm font-semibold outline-none' value={msgInput} onChange={e => setMsgInput(e.target.value)} />
+                <button className='w-1/5 bg-[#BCE613] py-1.5 rounded-r-md' onClick={send_msg}>
+                    Send
+                </button>
+            </div>
+        </div>
+
+        <div className={`absolute flex flex-col right-10 top-10 bg-[#282828] w-1/4 h-4/6 rounded-lg border border-white/30 ${!imgBox ? 'hidden' : ''}`}>
+            <div className='w-full flex items-center gap-3 box-border p-3 border-b border-white/30 bg-[#353535] rounded-t-lg text-white/80 text-sm font-semibold'>
+
+                <FaImage color='#808080' size={18} />
+                Image to Code
+
+            </div>
+
+           <div className='flex-1 overflow-y-auto overflow-x-hidden'>
                 <div className='flex justify-start'>
                     <div className='bg-[#BCE613] w-4/5 ml-2 mt-2 box-border p-2 rounded-lg text-wrap break-words text-[#333333]/80 text-md'>
                         <h1 className='font-bold uppercase text-xs text-[#333333]'>
                             Bot
                         </h1>
 
-                        scjdnsdjnvsipdvnspdivnspvisdvnspdivnsvpsudnvspduvn
-                    </div>
-                </div>
-
-                <div className='flex justify-end'>
-                    <div className='bg-[#353535] w-4/5 mr-2 mt-2 box-border p-2 rounded-lg text-wrap break-words text-white/60 text-md'>
-                        <h1 className='font-bold uppercase text-xs text-white/80'>
-                            User
-                        </h1>
-
-                        scjdnsdjnvsipdvnspdivnspvisdvnspdivnsvpsudnvspduvn
+                        <p id='image-output'>...</p>
                     </div>
                 </div>
            </div>
 
             <div className='p-3 border-t border-white/30 bg-[#353535] rounded-b-lg text-sm font-semibold flex justify-center'>
-                <input type='text' placeholder='Ask me anything' className='w-11/12 bg-[#282828] border border-white/30 rounded-l-md p-2 text-white/80 text-sm font-semibold outline-none' />
-                <button className='w-1/5 bg-[#BCE613] py-1.5 rounded-r-md'>
+                <input type='file' accept='.png, .jpg, .jpeg' placeholder='Ask me anything' className='w-11/12 bg-[#282828] border border-white/30 rounded-l-md p-2 text-white/80 text-sm font-semibold outline-none' onChange={e => {setSelectedImage(e.target.files[0])}} />
+                <button className='w-1/5 bg-[#BCE613] py-1.5 rounded-r-md' onClick={img_2_code_func}>
                     Send
                 </button>
             </div>
+        </div>
+
+        <div className={`absolute flex flex-col justify-center items-center gap-5 left-[22%] top-[25%] bg-[#353535] w-3/5 h-1/5 rounded-lg border border-white/30 ${!generateBox ? 'hidden' : ''}`}>
+            <input type='type' placeholder='Ask me anything' className='w-11/12 bg-[#282828] border border-white/30 rounded-md p-2 text-white/80 text-sm font-semibold outline-none' value={ask} onChange={e => {setAsk(e.target.value)}} />
+
+            <button className='w-3/5 bg-[#BCE613] py-1.5 rounded-md font-semibold duration-100 hover:opacity-70' onClick={text_2_code_func}>
+                    Generate Code
+            </button>
         </div>
     </main>
   )

@@ -47,7 +47,7 @@ export function github_login(){
     firebase.auth().signInWithPopup(provider).then(res => {
         console.log(res)
         localStorage.setItem('user', JSON.stringify(res.additionalUserInfo.username))
-        window.location.href = '/dashboard'
+        window.location.href = '/projects'
     })
 }
 

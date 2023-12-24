@@ -25,8 +25,6 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Landing />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          {/* <Route path='/project' element={<ProjectPage />}/> */}
           <Route path='/projects' element={<Projects />} />
           <Route path='/workspace' element={<Workspace />}/>
         </Routes>
