@@ -67,7 +67,7 @@ function Dashboard() {
 
                 <div className="leftP-content w-[39.484vw] ml-[6.944vw] mt-[8.248vh]">
                     {workspaces.map((item, key) =>
-                    <Link to="/project" key={key}>
+                    <Link to="/workspace" key={key}>
                     <div className="project-name h-[10.285vh] mt-[2.240vh] flex items-center">
                         <img className="w-[3.306vw] h-[4.844vh] ml-[2.513vw]" src={item.type == 'react' ? reactIcon : nodeIcon} alt="reactIcon"></img>
                         <div className="content ml-[1.587vw] h-[7.128vh]">
