@@ -1,7 +1,6 @@
 import './Projects.css';
-import { AiOutlineInfoCircle } from "react-icons/ai";
+// import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FaRegPlusSquare } from "react-icons/fa";
-import logo from "./assets/logo.png";
 import reactIcon from "./assets2/reactIcon.png";
 import nodeIcon from "./assets2/nodeIcon.png";
 import React, { useState, useEffect, useRef } from "react";
@@ -10,6 +9,7 @@ import { logout, get_workspaces, create_workspace } from "./scripts/dbFunc";
 import WorkspaceModal from "./components/modals/WorkspaceModal";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+import { FiLogOut } from "react-icons/fi";
 
 function Projects() {
     const user = localStorage.getItem('user')
@@ -85,6 +85,7 @@ function Projects() {
             <div className="projects-header h-[6.234vh] bg-transparent flex items-center relative">
                 {/* <span className='text-[#B7B7B7] absolute text-[28px] left-[1.322vw]'>mitr</span>
                 <AiOutlineInfoCircle size={26} className='text-[#B7B7B7] right-[1.322vw] absolute cursor-pointer' /> */}
+                <FiLogOut onClick={logout} size={26} className='text-[#B7B7B7] cursor-pointer absolute right-[1.322vw]'/>
             </div>
 
 
