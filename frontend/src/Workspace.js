@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import Btn from './components/Btn'
-import logo from '../src/assets/logo.png';
+import logo from '../src/assets/logo.gif';
 import Editor from '@monaco-editor/react'
 import { Link } from 'react-router-dom'
 import { code_completion, ask_gpt, img_2_code, text_2_code, debug_code } from './scripts/codeAssistant';
@@ -123,7 +123,8 @@ function Workspace() {
         let arr = []
         err.map((error) => {
             debug_code(code[error.startLineNumber-1]).then((response) => {
-                arr.push({line: error.startLineNumber, error: response})
+                const res = response.replace(/\\n/g, '\n').replace(/```javascript/g, 'Corrected Code:').replace(/```/g, '\nDescription:');
+                arr.push({line: error.startLineNumber, error: res})
             })
         })
         
@@ -241,9 +242,9 @@ function Workspace() {
                 </div>
 
                 <div className='px-4 py-3 box-border hidden' id={`error-para-${index}`}>
-                    <p className='text-white/60 text-[13px]'>
+                    <pre className='text-white/60 text-[13px] break-words whitespace-pre-wrap'>
                         {item.error}
-                    </p>
+                    </pre>
                 </div>
                 </>
             )}
