@@ -1,6 +1,6 @@
 import './Projects.css';
 // import { AiOutlineInfoCircle } from "react-icons/ai";
-import { FaRegPlusSquare } from "react-icons/fa";
+import { FaPlus, FaRegPlusSquare } from "react-icons/fa";
 import reactIcon from "./assets2/reactIcon.png";
 import nodeIcon from "./assets2/nodeIcon.png";
 import React, { useState, useEffect, useRef } from "react";
@@ -12,7 +12,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 
 function Projects() {
-    // logout()
     const user = localStorage.getItem('user')
     if (!user) window.location.href = '/'
 
@@ -113,7 +112,7 @@ function Projects() {
                 <div className="workspace-container" ref={containerRef}>
                 {workspaces.slice(currentIndex, currentIndex + 4).map((item, key) =>
                 <Link to="/workspace" key={key}>
-                        <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] bg-[#08073880] hover:bg-[#08073880]/40 rounded-[20px]'>
+                        <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] duration-150 bg-[#08073880] hover:bg-[#08073880]/40 rounded-[20px]'>
                     <div className='flex justify-center pt-[5.534vh]'>
                         <img className='h-[6.534vh]' src={(item.type == 'react' || item.type == 'React') ?  reactIcon : nodeIcon} alt='JSIcon'/>
                     </div>
@@ -127,16 +126,9 @@ function Projects() {
                 </div>
                 
 
-                <div onClick={openModal} className='projects-ws-plus w-[13.425vw] h-full rounded-[20px] mx-[1.322vw] bg-[#ffffff] pt-[75px] hover:border-[#8C9AA6] hover:border-2 opacity-80 hover:opacity-100 cursor-pointer'>
-                    <div>
-                        <FaRegPlusSquare className=' text-black  m-auto' size={40} />
-                        <div className=' w-full flex items-center justify-center mt-4'>
-                            <div>
-                                {/* <p className='text-white opacity-80 font-bold text-[20px]'>Create new</p> */}
-                                <p className='text-black  font-bold text-[20px]'>Workspace</p>
-                            </div>
-                        </div>
-                    </div>
+                <div onClick={openModal} className='w-[13.425vw] h-full flex flex-col items-center justify-center duration-150 rounded-[20px] mx-[1.322vw] bg-[#ffffff] hover:border-[#282828] hover:border-2 opacity-80 hover:opacity-100 cursor-pointer'>
+                    <FaPlus className=' text-[#808080]' size={30} />
+                    <p className='text-[#808080]  font-bold text-[20px]'>Workspace</p>
                 </div>
 
 
