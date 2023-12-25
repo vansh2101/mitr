@@ -27,12 +27,12 @@ function Landing() {
 
 
             {/* HEADER */}
-            <div className='header h-[14.545vh] ml-[9.240vw] mr-[9.240vw] pl-[1.994vw] pr-[1.994vw] pt-[7.272vh] pb-[7.272vh] flex items-center'>
+            <div className='header h-[14.545vh] ml-[9.240vw] mr-[9.240vw] pl-[1.994vw] pr-[1.994vw] pt-[7.272vh] pb-[7.272vh] flex items-center justify-between'>
                 <div className=' flex items-center justify-center'>
                     <img src={logo} alt="Design+Code logo" className='w-9 aspect-1' />
                 </div>
                 <div className='header-navigator ml-[15.511vw]'>
-                    <a href='/'>
+                    {/* <a href='/'>
                         <button className='navigator-btn h-[5.454vh] w-[8.580vw]'>
                             <p className='navigator-para'>Courses</p>
                         </button>
@@ -51,7 +51,7 @@ function Landing() {
                         <button className='navigator-btn h-[5.454vh] w-[8.085vw]'>
                             <p className='navigator-para'>Pricing</p>
                         </button>
-                    </a>
+                    </a> */}
 
                     <div className='more'>
                         <button className='navigator-btn h-[5.454vh] w-[4.290vw] flex items-center justify-center'>

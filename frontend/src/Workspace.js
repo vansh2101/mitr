@@ -45,6 +45,7 @@ function Workspace() {
     const [ask, setAsk] = useState('');
     const [errors, setErrors] = useState([]);
     const [debugErrors, setDebugErrors] = useState([]);
+    const [searchMsg, setSearchMsg] = useState('Errors are being searched...');
 
     const toggleFilesVisibility = (index) => {
         const updatedFolders = [...folderData];
@@ -106,18 +107,32 @@ function Workspace() {
         setErrors(err)
     }
 
-    const debug = () => {
-        if (debugBox) { return }
+    const onClickDebug = () => {
+        setDebugBox(!debugBox); 
+
+        if (!debugBox) {
+            setErrors('Errors are being searched...')
+            setDebugErrors([])
+            debug(errors)
+        }
+    }
+
+    const debug = (err) => {
+        console.log('started')
         const code = editorRef.current.getValue().split('\n')
         let arr = []
-        errors.map((error) => {
+        err.map((error) => {
             debug_code(code[error.startLineNumber-1]).then((response) => {
                 arr.push({line: error.startLineNumber, error: response})
             })
         })
-        console.log(arr)
+        
         setDebugErrors(arr)
     }
+    
+    useEffect(() => {
+        setSearchMsg('Found all Errors!')
+    }, [debugErrors])
 
     useEffect(() => {
         document.addEventListener('keydown', complete_code)
@@ -135,7 +150,7 @@ function Workspace() {
 
             <Btn text='Assistant' icon={<GoDependabot color='#111111' size={16} />} onClick={()=> setAssistantBox(!assistantBox)}/>
             <Btn text='Generate Code' icon={<FaCode color='#111111' size={16} className='opacity-75' />} onClick={()=> setGenerateBox(!generateBox)}/>
-            <Btn text='Debug' icon={<IoBugOutline color='#111111' size={16} />} onClick={()=> {setDebugBox(!debugBox); debug()}}/>
+            <Btn text='Debug' icon={<IoBugOutline color='#111111' size={16} />} onClick={onClickDebug}/>
             <Btn text='Image to Code ' icon={<FaImage color='#111111' size={16} className='opacity-75' />} onClick={()=> setImgBox(!imgBox)}/>
         </div>
 
@@ -208,7 +223,7 @@ function Workspace() {
             <div className='w-full flex items-center justify-between box-border px-3 pr-5 py-2 border-b border-white/30 bg-[#353535] rounded-t-lg text-white/80 text-sm font-semibold'>
                 <div>
                     <img src='loader.gif' className='w-8 inline-block mr-3' />
-                    Errors are being Searched...
+                    {searchMsg}
                 </div>
 
                 <FaBug color='#808080' size={16} />
