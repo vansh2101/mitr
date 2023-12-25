@@ -7,9 +7,9 @@ Mitr is a web application designed to serve as a code assistance tool for develo
 ## Tools Used ⚙️
 
 <div style='display: flex'>
-<img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" alt="sass" width="80" height="80"/>
-<img src="https://github.com/devicons/devicon/blob/master/icons/firebase/firebase-plain-wordmark.svg" alt="sass" width="80" height="80"/>
-<img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" alt="sass" width="80" height="80"/>
+<img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" alt="NodeJS" width="80" height="80"/>
+<img src="https://github.com/devicons/devicon/blob/master/icons/firebase/firebase-plain-wordmark.svg" alt="Firebase" width="80" height="80"/>
+<img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" alt="ReactJS" width="80" height="80"/>
 </div>
 
 ## Challenges we ran into 👀
