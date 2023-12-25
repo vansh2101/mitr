@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import Btn from './components/Btn'
-import logo from '../src/assets/logo.png';
+import logo from '../src/assets2/logo.png';
 import Editor from '@monaco-editor/react'
 import { Link } from 'react-router-dom'
 import { code_completion, ask_gpt, img_2_code, text_2_code, debug_code } from './scripts/codeAssistant';
