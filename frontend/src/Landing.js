@@ -104,7 +104,7 @@ function Landing() {
 
 
                 {/* HERO SECTION RIGHT */}
-                <div className='heroSectionRight w-full h-[61.212vh] relative'>
+                <div className='heroSectionRight w-[47vw] h-[61.212vh] ml-[36vw] relative'>
                     {/* <div className='img-1'>
                         <div className='inner-img-1'>
                             <img src={img1} className='w-[11.881vw] left-[37.953vw] rounded-[8px] absolute' alt="Mockup"></img>
@@ -117,17 +117,17 @@ function Landing() {
                     </div> */}
                     <div className='img-3'>
                         <div className='inner-img-3'>
-                            <img src={img3} className='w-[46.204vw] top-[9.696vh] left-[42.244vw] rounded-[8px] absolute' alt="Mockup"></img>
+                            <img src={img3} className='w-[46.204vw] top-[9.696vh] left-[6.244vw] rounded-[8px] absolute' alt="Mockup"></img>
                         </div>
                     </div>
                     <div className='img-4'>
                         <div className='inner-img-4'>
-                            <img src={img4} className='w-[26.402vw] left-[36.963vw] top-[37.575vh] rounded-[8px] absolute' alt="Mockup"></img>
+                            <img src={img4} className='w-[26.402vw] left-[0.963vw] top-[37.575vh] rounded-[8px] absolute' alt="Mockup"></img>
                         </div>
                     </div>
                     <div className='img-5'>
                         <div className='inner-img-5'>
-                            <img src={img5} className='w-[27.062vw] left-[66.668vw] top-[37.575vh] rounded-[8px] absolute' alt="Mockup"></img>
+                            <img src={img5} className='w-[27.062vw] left-[30.668vw] top-[37.575vh] rounded-[8px] absolute' alt="Mockup"></img>
                         </div>
                     </div>
                 </div>
