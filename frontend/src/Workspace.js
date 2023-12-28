@@ -3,9 +3,13 @@ import Btn from './components/Btn'
 import logo from '../src/assets2/logo.png';
 // import mobile from '../src/assets2/mobile.png'
 import Editor from '@monaco-editor/react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { code_completion, ask_gpt, img_2_code, text_2_code, debug_code } from './scripts/codeAssistant';
 import SpotLightModal from './components/modals/SpotLightModal';
+import { get_files_from_db } from './scripts/dbFunc';
+import prettier from "prettier/esm/standalone.mjs";
+import parserBabel from "prettier/esm/parser-babel.mjs";
+import parserHtml from "prettier/esm/parser-html.mjs";
 
 //? Icons
 import { IoBugOutline } from "react-icons/io5";
@@ -14,8 +18,11 @@ import { FaBug, FaChevronRight, FaCode, FaFile, FaFolder, FaImage, FaPlus, FaSea
 import { GoDependabot, GoDotFill } from "react-icons/go";
 import { MdLibraryAddCheck } from "react-icons/md";
 import { LuFileCode2 } from "react-icons/lu";
+import { editor } from 'monaco-editor';
 
 function Workspace() {
+    
+    const {user, workspace} = useParams()
 
     const editorRef = useRef(null);
 
@@ -51,6 +58,9 @@ function Workspace() {
     const [searchMsg, setSearchMsg] = useState('Errors are being searched...');
     const [showSearchInput, setShowSearchInput] = useState(false);
     const [isSpotLightModalOpen, setSpotLightModalOpen] = useState(false);
+    const [fldr, setFldr] = useState([])
+    const [str, setStr] = useState({})
+    const [editorOptions, setEditorOptions] = useState({defaultLanguage: 'javascript', defaultPath:'sample.js'})
 
     // const openSpotLightModal = () => {
     //     setSpotLightModalOpen(true);
@@ -153,12 +163,30 @@ function Workspace() {
         setDebugErrors(arr)
     }
 
+    const change_file = async (file) => {
+        const lang = file.name.split('.')[-1]
+        const path = `${file.folder}/${file.name}`
+        setEditorOptions({defaultLanguage: lang, defaultPath: path})
+
+        // const code = await prettier.format(file.code, { semi: false, parser: 'babel', plugins: [parserBabel, parserHtml] });
+        // console.log(file.code)
+        const code = file.code.replace(/\\n/g, '\n').replace(/        /g, '\n')
+        editorRef.current.setValue(code)
+        // editorRef.current.setModelLanguage(editor.current.getModel(), lang)
+    }
+
     useEffect(() => {
         setSearchMsg('Errors!')
     }, [debugErrors])
 
     useEffect(() => {
         document.addEventListener('keydown', complete_code)
+
+        get_files_from_db(user, workspace).then((response) => {
+            const {folders, structure} = response
+            setFldr(folders)
+            setStr(structure)
+        })
     }, [])
 
     return (
@@ -226,7 +254,7 @@ function Workspace() {
                     </h2>
 
                     <div className='mt-2'>
-                        {folderData.map((folder, index) => (
+                        {/* {folderData.map((folder, index) => (
                             <div key={index}>
                                 <div
                                     className="left-header-content flex items-center justify-between px-3 pl-4 py-1.5 box-border text-white cursor-pointer mb-1 rounded-lg hover:bg-[#232323]"
@@ -252,7 +280,36 @@ function Workspace() {
                                     ))}
                                 </div>
                             </div>
-                        ))}
+                        ))} */}
+
+                        {fldr.map((folder, index) => 
+                            <div key={index}>
+                                <div
+                                    className={`left-header-content flex items-center justify-between px-3 pl-4 py-1.5 box-border text-white cursor-pointer mb-1 rounded-lg hover:bg-[#232323] ${folder == '/' ? 'hidden' : ''}`}
+                                    onClick={() => toggleFilesVisibility(index)}
+                                >
+                                    <div className='flex items-center gap-2'>
+                                        <FaFolder size={14} fill='#FEFF3D' />
+                                        <span className="text-white opacity-60 ml-1">{folder}</span>
+                                    </div>
+
+                                    <FaChevronRight size={14} color='#808080' id={index} className='duration-200' />
+                                </div>
+
+                                <div className={`duration-200 ${folder == '/' ? '' : 'hidden'}`} id={`file${index}`}>
+                                    {str[folder].map((file, fileIndex) => (
+                                        <div
+                                            key={fileIndex}
+                                            className={`file-box flex items-center gap-2 box-border ${folder == '/' ? 'px-3' : 'px-9'} py-[3px] cursor-pointer rounded-lg hover:bg-[#232323]`}
+                                            onClick={() => change_file(file)}
+                                        >
+                                            <FaFile size={14} color='#12A9D9' />
+                                            <span className="text-white opacity-60">{file.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                 </div>
@@ -268,7 +325,7 @@ function Workspace() {
                     </div>
 
                     <div id='editor' className='flex-1 w-full py-1 bg-[#1e1e1e]'>
-                        <Editor height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage='javascript' defaultPath='index.js' defaultValue='//Welcome to Javascript' onMount={handleEditorDidMount} onValidate={e => get_errors(e)} />
+                        <Editor id='editor' height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage={editorOptions.defaultLanguage} defaultPath={editorOptions.defaultPath} defaultValue='//Welcome to Javascript' onMount={handleEditorDidMount} onValidate={e => get_errors(e)} />
                     </div>
                 </div>
             </div>

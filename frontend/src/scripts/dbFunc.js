@@ -4,7 +4,7 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage'
 
 
-function static_code(workspace){
+function static_code(workspace, type=null){
     const pkg = ```
     {
         "name": ${workspace},
@@ -45,6 +45,8 @@ function static_code(workspace){
         }
     }  
     ```
+
+    return pkg
 }
 
 
@@ -59,25 +61,27 @@ export function add_file_to_db(user, project, file, code){
 }
 
 
-export function get_files_from_db(user, project){
+export async function get_files_from_db(user, project){
     const db = firebase.firestore()
 
-    const files = db.collection('projects').doc(user).collection(project).get()
+    const files = await db.collection('projects').doc(user).collection(project).get()
 
     const folders = []
     const structure = {}
+    
+    files.forEach(file => {
+        const data = file.data()
 
-    files.map((file) => {
-        if(!(file.folder in folders)){
-            folders.push(file.folder)
-            structure[file.folder] = [file.name]
+        if(!(data.folder in folders)){
+            folders.push(data.folder)
+            structure[data.folder] = [data]
         }
         else{
-            structure[file.folder] = [...structure[file.folder], file.name]
+            structure[data.folder] = [...structure[data.folder], data]
         }
     })
-
-    return folders, structure
+    
+    return {folders, structure}
 }
 
 export function get_workspaces(user){
@@ -94,11 +98,13 @@ export function create_workspace(user, name, workspaces){
         workspaces: workspaces
     })
 
-    db.collection('projects').doc(user).collection(name).doc('index.js').set({
+    db.collection('projects').doc(user).collection(name).doc('package.json').set({
         name: 'package.json',
-        code: ``,
+        code: static_code(name),
         folder: '/',
     })
+
+    console.log('done')
 
 }
 

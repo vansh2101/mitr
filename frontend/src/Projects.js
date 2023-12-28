@@ -38,7 +38,7 @@ function Projects() {
         let year = newDate.getFullYear();
 
         const ws = [...workspaces, { 'name': workspaceName, 'type': workspaceType, 'date': `${day} / ${month} / ${year}` }];
-        create_workspace(localStorage.getItem('user'), workspaceName, ws);
+        create_workspace(user, workspaceName, ws);
         get_data()
         closeModal();
     };
@@ -111,7 +111,7 @@ function Projects() {
                 {/* Workspaces */}
                 <div className="workspace-container" ref={containerRef}>
                 {workspaces.slice(currentIndex, currentIndex + 4).map((item, key) =>
-                <Link to="/workspace" key={key}>
+                <Link to={`/workspace/${user}/${item.name}`} key={key} >
                         <div className='projects-ws w-[13.425vw] h-full mx-[1.322vw] duration-150 bg-[#08073880] hover:bg-[#08073880]/40 rounded-[20px]'>
                     <div className='flex justify-center pt-[5.534vh]'>
                         <img className='h-[6.534vh]' src={(item.type == 'react' || item.type == 'React') ?  reactIcon : nodeIcon} alt='JSIcon'/>

@@ -23,7 +23,7 @@ root.render(
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/projects' element={<Projects />} />
-          <Route path='/workspace' element={<Workspace />}/>
+          <Route path='/workspace/:user/:workspace' element={<Workspace />}/>
         </Routes>
       </BrowserRouter>
       
