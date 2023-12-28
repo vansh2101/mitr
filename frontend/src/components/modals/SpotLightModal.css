@@ -1,0 +1,32 @@
+@keyframes jkLqKc {
+    0% {
+        transform: translateY(-100px) scale(0.8);
+        opacity: 0;
+    }
+    
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 1;
+    }
+}
+
+.SpotLightModal-ws {
+    background-color: transparent;
+    -webkit-box-pack: center;
+}
+
+.SpotLightModal-ws-content {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 5px 10px rgba(0, 0, 0, 0.1) inset;
+    backdrop-filter: blur(40px);
+    opacity: 0;
+    animation: 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s 1 normal forwards running jkLqKc;
+}
+
+.SpotLightModal-ws-close-btn {
+    -webkit-box-pack: center;
+    place-content: center;
+    background: linear-gradient(360deg, rgba(99, 106, 150, 0.4) 0%, rgba(182, 186, 214, 0.5) 100%);
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 20px 40px, rgba(255, 255, 255, 0.3) 0px 0px 0px 0.5px inset;
+    backdrop-filter: blur(40px);
+}

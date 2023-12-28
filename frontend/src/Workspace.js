@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Btn from './components/Btn'
 import logo from '../src/assets2/logo.png';
-import mobile from '../src/assets2/mobile.png'
+// import mobile from '../src/assets2/mobile.png'
 import Editor from '@monaco-editor/react'
 import { Link } from 'react-router-dom'
 import { code_completion, ask_gpt, img_2_code, text_2_code, debug_code } from './scripts/codeAssistant';
+import SpotLightModal from './components/modals/SpotLightModal';
 
 //? Icons
 import { IoBugOutline } from "react-icons/io5";
@@ -49,6 +50,20 @@ function Workspace() {
     const [debugErrors, setDebugErrors] = useState([]);
     const [searchMsg, setSearchMsg] = useState('Errors are being searched...');
     const [showSearchInput, setShowSearchInput] = useState(false);
+    const [isSpotLightModalOpen, setSpotLightModalOpen] = useState(false);
+
+    // const openSpotLightModal = () => {
+    //     setSpotLightModalOpen(true);
+    //     console.log('Open CLicked!');
+    // };
+
+    // const closeSpotLightModal = () => {
+    //     setSpotLightModalOpen(false);
+    // };
+
+    const toggleSpotLightModal = () => {
+        setSpotLightModalOpen(!isSpotLightModalOpen);
+    };
 
     const toggleFilesVisibility = (index) => {
         const updatedFolders = [...folderData];
@@ -194,9 +209,13 @@ function Workspace() {
                                 Create New File
                             </div>
                         )}
-                        <div
+                        {/* <div
                             className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
                             onClick={toggleSearchInput}
+                        > */}
+                        <div
+                            className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
+                            onClick={toggleSpotLightModal}
                         >
                             <FaSearch />
                         </div>
@@ -369,7 +388,14 @@ function Workspace() {
                 <button className='w-3/5 bg-[#BCE613] py-1.5 rounded-md font-semibold duration-100 hover:opacity-70' onClick={text_2_code_func}>
                     Generate Code
                 </button>
+
+
             </div>
+
+            
+            {isSpotLightModalOpen && (
+                <SpotLightModal />
+            )}
         </main>
     )
 }
