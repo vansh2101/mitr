@@ -261,7 +261,7 @@ function Workspace() {
                     <div className='flex items-center justify-between'>
                         <div className='flex items-center gap-1.5 h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
                             <RiJavascriptFill fill='#FEFF3D' size={17} />
-                            main.css
+                            index.js
                         </div>
 
                         <p className='text-white/25 text-xs font-semibold mr-5'>Press Tab for code completion</p>
