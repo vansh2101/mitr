@@ -6,6 +6,11 @@ import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { github_login, logout } from "./scripts/dbFunc";
+import img1 from "./assets2/img1.png";
+import img2 from "./assets2/img2.png";
+import img3 from "./assets2/img3.png";
+import img4 from "./assets2/img4.png";
+import img5 from "./assets2/img5.png";
 
 
 function Landing() {
@@ -21,7 +26,6 @@ function Landing() {
 
     return (
         <div className='main-screen h-screen w-screen relative'>
-            {/* <img src={bg} alt='bg' className='h-screen w-screen'/> */}
 
 
 
@@ -32,26 +36,6 @@ function Landing() {
                     <img src={logo} alt="Design+Code logo" className='w-9 aspect-1' />
                 </div>
                 <div className='header-navigator ml-[15.511vw]'>
-                    {/* <a href='/'>
-                        <button className='navigator-btn h-[5.454vh] w-[8.580vw]'>
-                            <p className='navigator-para'>Courses</p>
-                        </button>
-                    </a>
-                    <a href='/'>
-                        <button className='navigator-btn h-[5.454vh] w-[8.910vw]'>
-                            <p className='navigator-para'>Tutorials</p>
-                        </button>
-                    </a>
-                    <a href='/'>
-                        <button className='navigator-btn h-[5.454vh] w-[10.561vw]'>
-                            <p className='navigator-para'>Livestreams</p>
-                        </button>
-                    </a>
-                    <a href='/'>
-                        <button className='navigator-btn h-[5.454vh] w-[8.085vw]'>
-                            <p className='navigator-para'>Pricing</p>
-                        </button>
-                    </a> */}
 
                     <div className='more'>
                         <button className='navigator-btn h-[5.454vh] w-[4.290vw] flex items-center justify-center'>
@@ -107,25 +91,45 @@ function Landing() {
                     <button onClick={login} className='btn-X mt-[3.636vh] cursor-pointer rounded-2xl px-6 box-border py-2'>
                         <div className='btn-content flex items-center'>
                             <div className='btn-ring w-[3.630vw] h-[6.66vh] flex items-center'>
-                                {/* <img src={logo} alt="logo"/> */}
                                 <img src={gitIcon} alt="gitIcon" />
                             </div>
                             <div className='btn-text ml-[0.99vw]'>
-                                {/* <p className='btn-text-1 text-white opacity-75 hover:opacity-85'>Get Pro Access</p>
-              <p className='btn-text-2'>$19 per month</p> */}
                                 <p className='btn-text-1 text-white opacity-85'>Sign in with Github</p>
                             </div>
                         </div>
                     </button>
-                    {/* <p className='base-font w-[18.481vw] mt-[3.636vh] opacity-40 text-black'>Purchase includes access to 50+ courses, 320+ premium tutorials, 300+ hours of videos, source files and certificates.</p> */}
                 </div>
 
 
 
 
                 {/* HERO SECTION RIGHT */}
-                <div className='heroSectionLeft h-[1.955vh] w-[56.765vw] ml-[37.953vw] mt-[8.636vh]'>
-                    <img src={rightP} alt='rightP' />
+                <div className='heroSectionRight w-[47vw] h-[61.212vh] ml-[36vw] relative'>
+                    {/* <div className='img-1'>
+                        <div className='inner-img-1'>
+                            <img src={img1} className='w-[11.881vw] left-[37.953vw] rounded-[8px] absolute' alt="Mockup"></img>
+                        </div>
+                    </div>
+                    <div className='img-2'>
+                        <div className='inner-img-2'>
+                            <img src={img2} className='w-[11.881vw] left-[53.795vw] rounded-[8px] absolute' alt="Mockup"></img>
+                        </div>
+                    </div> */}
+                    <div className='img-3'>
+                        <div className='inner-img-3'>
+                            <img src={img3} className='w-[46.204vw] top-[9.696vh] left-[6.244vw] rounded-[8px] absolute' alt="Mockup"></img>
+                        </div>
+                    </div>
+                    <div className='img-4'>
+                        <div className='inner-img-4'>
+                            <img src={img4} className='w-[26.402vw] left-[0.963vw] top-[37.575vh] rounded-[8px] absolute' alt="Mockup"></img>
+                        </div>
+                    </div>
+                    <div className='img-5'>
+                        <div className='inner-img-5'>
+                            <img src={img5} className='w-[27.062vw] left-[30.668vw] top-[37.575vh] rounded-[8px] absolute' alt="Mockup"></img>
+                        </div>
+                    </div>
                 </div>
 
             </div>

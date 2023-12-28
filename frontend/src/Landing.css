@@ -175,3 +175,13 @@ h1 {
     -webkit-filter: drop-shadow(8px 8px 30px rgba(255, 255, 255, 0.4));
     filter: drop-shadow(8px 8px 30px rgba(255, 255, 255, 0.4));
 }
+
+
+.heroSectionRight {
+    position: relative;
+        top: 30px;
+        left: -30px;
+        perspective: 5000px;
+        perspective-origin: left bottom;
+        transform-style: flat;
+}

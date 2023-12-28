@@ -18,7 +18,8 @@ import { FaBug, FaChevronRight, FaCode, FaFile, FaFolder, FaImage, FaPlus, FaSea
 import { GoDependabot, GoDotFill } from "react-icons/go";
 import { MdLibraryAddCheck } from "react-icons/md";
 import { LuFileCode2 } from "react-icons/lu";
-import { editor } from 'monaco-editor';
+import { FaHtml5 } from "react-icons/fa";
+import { IoLogoCss3 } from "react-icons/io5";
 
 function Workspace() {
     
@@ -315,13 +316,21 @@ function Workspace() {
                 </div>
 
                 <div className='flex flex-col flex-1'>
-                    <div className='flex items-center justify-between'>
+                    <div className='flex items-center '>
                         <div className='flex items-center gap-1.5 h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
                             <RiJavascriptFill fill='#FEFF3D' size={17} />
+                            App.js
+                        </div>
+                        <div className='flex items-center gap-1.5 border-l-2 border-[#414141] h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
+                            <FaHtml5 fill='#E5532F' size={17} />
+                            index.html
+                        </div>
+                        <div className='flex items-center gap-1.5 border-l-2 border-r-2 border-[#414141] h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
+                            <IoLogoCss3 fill='#244BDD' size={17} />
                             main.css
                         </div>
 
-                        <p className='text-white/25 text-xs font-semibold mr-5'>Press Tab for code completion</p>
+                        <p className='text-white/25 text-xs font-semibold absolute right-5'>Press Tab for code completion</p>
                     </div>
 
                     <div id='editor' className='flex-1 w-full py-1 bg-[#1e1e1e]'>
