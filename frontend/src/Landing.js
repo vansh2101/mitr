@@ -103,7 +103,7 @@ function Landing() {
                         &nbsp; apps
                     </h1>
 
-                    <p className='para-1 w-[19.801vw] mt-[3.636vh]'>Don&apos;t skip design. Learn design and code, by building real apps with React and Swift. Complete courses about the best tools.</p>
+                    <p className='para-1 w-[19.801vw] mt-[3.636vh]'>Discover a new era of MERN development with Mitr. Unleash the potential of adaptive coding and seamless workflows.</p>
                     <button onClick={login} className='btn-X mt-[3.636vh] cursor-pointer rounded-2xl px-6 box-border py-2'>
                         <div className='btn-content flex items-center'>
                             <div className='btn-ring w-[3.630vw] h-[6.66vh] flex items-center'>
@@ -117,7 +117,7 @@ function Landing() {
                             </div>
                         </div>
                     </button>
-                    <p className='base-font w-[18.481vw] mt-[3.636vh] opacity-40 text-black'>Purchase includes access to 50+ courses, 320+ premium tutorials, 300+ hours of videos, source files and certificates.</p>
+                    {/* <p className='base-font w-[18.481vw] mt-[3.636vh] opacity-40 text-black'>Purchase includes access to 50+ courses, 320+ premium tutorials, 300+ hours of videos, source files and certificates.</p> */}
                 </div>
 
 
