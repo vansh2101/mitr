@@ -4,12 +4,9 @@ import logo from '../src/assets2/logo.png';
 // import mobile from '../src/assets2/mobile.png'
 import Editor from '@monaco-editor/react'
 import { Link, useParams } from 'react-router-dom'
-import { code_completion, ask_gpt, img_2_code, text_2_code, debug_code } from './scripts/codeAssistant';
+import { code_completion, ask_gpt, img_2_code, text_2_code, debug_code, test_generation, refactor } from './scripts/codeAssistant';
 import SpotLightModal from './components/modals/SpotLightModal';
-import { get_files_from_db } from './scripts/dbFunc';
-import prettier from "prettier/esm/standalone.mjs";
-import parserBabel from "prettier/esm/parser-babel.mjs";
-import parserHtml from "prettier/esm/parser-html.mjs";
+import { get_files_from_db, add_file_to_db, update_file_in_db } from './scripts/dbFunc';
 
 //? Icons
 import { IoBugOutline } from "react-icons/io5";
@@ -20,6 +17,7 @@ import { MdLibraryAddCheck } from "react-icons/md";
 import { LuFileCode2 } from "react-icons/lu";
 import { FaHtml5 } from "react-icons/fa";
 import { IoLogoCss3 } from "react-icons/io5";
+import { TbJson } from "react-icons/tb";
 
 function Workspace() {
     
@@ -61,7 +59,9 @@ function Workspace() {
     const [isSpotLightModalOpen, setSpotLightModalOpen] = useState(false);
     const [fldr, setFldr] = useState([])
     const [str, setStr] = useState({})
-    const [editorOptions, setEditorOptions] = useState({defaultLanguage: 'javascript', defaultPath:'sample.js'})
+    const [editorOptions, setEditorOptions] = useState({defaultLanguage: 'javascript', defaultPath:'untitled.js'})
+    const [fileName, setFileName] = useState('')
+    const [saving, setSaving] = useState(false)
 
     // const openSpotLightModal = () => {
     //     setSpotLightModalOpen(true);
@@ -77,9 +77,9 @@ function Workspace() {
     };
 
     const toggleFilesVisibility = (index) => {
-        const updatedFolders = [...folderData];
-        updatedFolders[index].isOpen = !updatedFolders[index].isOpen;
-        setFolderData(updatedFolders);
+        // const updatedFolders = [...folderData];
+        // updatedFolders[index].isOpen = !updatedFolders[index].isOpen;
+        // setFolderData(updatedFolders);
 
         document.getElementById(index).classList.toggle('rotate-90');
         document.getElementById(`file${index}`).classList.toggle('hidden');
@@ -165,15 +165,77 @@ function Workspace() {
     }
 
     const change_file = async (file) => {
-        const lang = file.name.split('.')[-1]
-        const path = `${file.folder}/${file.name}`
-        setEditorOptions({defaultLanguage: lang, defaultPath: path})
+        if(editorOptions.defaultPath == 'untitled.js'){
+            const lang = file.name.split('.')[1]
+            const path = `${file.folder}/${file.name}`
+            setEditorOptions({defaultLanguage: lang, defaultPath: path})
 
-        // const code = await prettier.format(file.code, { semi: false, parser: 'babel', plugins: [parserBabel, parserHtml] });
-        // console.log(file.code)
-        const code = file.code.replace(/\\n/g, '\n').replace(/        /g, '\n')
-        editorRef.current.setValue(code)
-        // editorRef.current.setModelLanguage(editor.current.getModel(), lang)
+            const code = file.code.replace(/\\n/g, '\n').replace(/        /g, '\n')
+            editorRef.current.setValue(code)
+            return
+        }
+
+        setSaving(true)
+        update_file_in_db(user, workspace, editorOptions.defaultPath.split('/')[1], editorRef.current.getValue()).then((response) => {  
+            const lang = file.name.split('.')[1]
+            const path = `${file.folder}/${file.name}`
+            setEditorOptions({defaultLanguage: lang, defaultPath: path})
+            
+            // const code = await prettier.format(file.code, { semi: false, parser: 'babel', plugins: [parserBabel, parserHtml] });
+            // console.log(file.code)
+            const code = file.code.replace(/\\n/g, '\n').replace(/        /g, '\n')
+            editorRef.current.setValue(code)
+            get_all_files()
+            // editorRef.current.setModelLanguage(editor.current.getModel(), lang)
+            setSaving(false)
+        })
+    }
+
+    const create_new_file = (code='', file=null) => {
+        if(!file){
+            var name = fileName.includes('/') ? fileName.split('/')[1] : fileName
+            var fold = fileName.includes('/') ? fileName.split('/')[0] : '/'
+        }
+        else{
+            var name = file.includes('/') ? file.split('/')[1] : file
+            var fold = file.includes('/') ? file.split('/')[0] : '/'
+        }
+
+        add_file_to_db(user, workspace, name, code, fold)
+        setShowSearchInput(false)
+        get_all_files()
+
+    }
+
+    const get_all_files = () => {
+        get_files_from_db(user, workspace).then((response) => {
+            const {folders, structure} = response
+            setFldr(folders)
+            setStr(structure)
+            console.log(folders)
+            console.log(structure)
+        })
+    }
+
+    const refactor_code = () => {
+        setSaving(true)
+        const code = editorRef.current.getValue()
+
+        refactor(code).then(response => {
+            const res = response.replace(/```javascript/g, '').replace(/```/g, '')
+            editorRef.current.setValue(res)
+            setSaving(false)
+        })
+    }
+
+    const test_case = () => {
+        setSaving(true)
+        const c = editorRef.current.getValue()
+        test_generation(c).then(response => {
+            const res = response.replace(/```jsx/g, '').replace(/```javascript/g, '').replace(/```/g, '')
+            create_new_file(res, 'tests/testcase.js')
+            setSaving(false)
+        })
     }
 
     useEffect(() => {
@@ -183,11 +245,7 @@ function Workspace() {
     useEffect(() => {
         document.addEventListener('keydown', complete_code)
 
-        get_files_from_db(user, workspace).then((response) => {
-            const {folders, structure} = response
-            setFldr(folders)
-            setStr(structure)
-        })
+        get_all_files()
     }, [])
 
     return (
@@ -203,10 +261,10 @@ function Workspace() {
                 <Btn text='Generate Code' icon={<FaCode color='#111111' size={16} className='opacity-75' />} onClick={() => setGenerateBox(!generateBox)} />
                 <Btn text='Debug' icon={<IoBugOutline color='#111111' size={16} />} onClick={onClickDebug} />
                 <Btn text='Image to Code ' icon={<FaImage color='#111111' size={16} className='opacity-75' />} onClick={() => setImgBox(!imgBox)} />
-                <Btn text='Code Refactor ' icon={<LuFileCode2 color='#111111' size={16} className='opacity-75' />} >
+                <Btn text='Code Refactor ' icon={<LuFileCode2 color='#111111' size={16} className='opacity-75' />} onClick={refactor_code} >
                     {/* <img src={mobile} className='text-white' alt='mobile' /> */}
                 </Btn>
-                <Btn text='Test Case ' icon={<MdLibraryAddCheck color='#111111' size={16} className='opacity-75' />} />
+                <Btn text='Test Case ' icon={<MdLibraryAddCheck color='#111111' size={16} className='opacity-75' />} onClick={test_case}/>
             </div>
 
             <div className='flex flex-1'>
@@ -222,32 +280,45 @@ function Workspace() {
                     </div> */}
 
                         {showSearchInput ? (
-                            // Render search input field
+                            <>
+                            {/* // Render search input field */}
                             <div className='flex items-center gap-3 bg-[#242424] px-5 pr-8 py-1.5 text-[#808080] text-sm font-semibold rounded-md cursor-pointer border w-[12.3vw] border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'>
                                 {/* <FaSearch /> */}
                                 <input
                                     type='text'
-                                    placeholder='Search...'
+                                    placeholder='Enter File Name...'
                                     className='bg-transparent border-none outline-none text-white placeholder:text-[#808080]'
+                                    onChange={e => setFileName(e.target.value)}
+                                    value={fileName}
                                 />
                             </div>
+
+                            <div
+                                className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
+                                onClick={create_new_file}
+                                >
+                                <FaPlus />
+                            </div>
+                            </>
                         ) : (
-                            // Render "Create New File" section
-                            <div className='flex items-center gap-3 bg-[#242424] px-5 pr-8 py-1.5 text-[#808080] text-sm font-semibold rounded-md cursor-pointer border w-[12.3vw] border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'>
+                            <>
+                            {/* // Render "Create New File" section */}
+                            <div className='flex items-center gap-3 bg-[#242424] px-5 pr-8 py-1.5 text-[#808080] text-sm font-semibold rounded-md cursor-pointer border w-[12.3vw] border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white' onClick={() => setShowSearchInput(true)}>
                                 <FaPlus size={14} />
                                 Create New File
                             </div>
-                        )}
                         {/* <div
-                            className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
-                            onClick={toggleSearchInput}
-                        > */}
+                        className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
+                        onClick={toggleSearchInput}
+                    > */}
                         <div
-                            className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
-                            onClick={toggleSpotLightModal}
+                        className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
+                        onClick={toggleSpotLightModal}
                         >
                             <FaSearch />
                         </div>
+                        </>
+                        )}
                     </div>
 
                     <h2 className='text-[#808080] text-lg font-semibold mt-4'>
@@ -304,7 +375,18 @@ function Workspace() {
                                             className={`file-box flex items-center gap-2 box-border ${folder == '/' ? 'px-3' : 'px-9'} py-[3px] cursor-pointer rounded-lg hover:bg-[#232323]`}
                                             onClick={() => change_file(file)}
                                         >
-                                            <FaFile size={14} color='#12A9D9' />
+                                            {file.name.includes('.json') ?  
+                                                <TbJson color='green' size={17} /> 
+                                                : file.name.includes('.js') ? 
+                                                <RiJavascriptFill fill='#FEFF3D' size={17} />
+                                            :
+                                                file.name.includes('.html') ? 
+                                                <FaHtml5 fill='#E5532F' size={17} />
+                                            :   file.name.includes('.css') ? 
+                                                <IoLogoCss3 fill='#244BDD' size={17} />
+                                                :
+                                            <FaCode size={14} color='#12A9D9' />
+                                            }
                                             <span className="text-white opacity-60">{file.name}</span>
                                         </div>
                                     ))}
@@ -317,24 +399,26 @@ function Workspace() {
 
                 <div className='flex flex-col flex-1'>
                     <div className='flex items-center '>
-                        <div className='flex items-center gap-1.5 h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
+                        <div className='flex items-center relative gap-1.5 h-full w-[18%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
                             <RiJavascriptFill fill='#FEFF3D' size={17} />
-                            App.js
+                            {editorOptions.defaultPath}
+                            <img src='/loader.gif' className={`w-5 inline-block mr-3 absolute right-1 top-2 ${saving? '' : 'hidden'}`} />
+                            
                         </div>
-                        <div className='flex items-center gap-1.5 border-l-2 border-[#414141] h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
+                        {/* <div className='flex items-center gap-1.5 border-l-2 border-[#414141] h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
                             <FaHtml5 fill='#E5532F' size={17} />
                             index.html
                         </div>
                         <div className='flex items-center gap-1.5 border-l-2 border-r-2 border-[#414141] h-full w-[15%] box-border p-2 pl-7 bg-[#1e1e1e75] text-[#808080] text-sm'>
                             <IoLogoCss3 fill='#244BDD' size={17} />
                             main.css
-                        </div>
+                        </div> */}
 
                         <p className='text-white/25 text-xs font-semibold absolute right-5'>Press Tab for code completion</p>
                     </div>
 
                     <div id='editor' className='flex-1 w-full py-1 bg-[#1e1e1e]'>
-                        <Editor id='editor' height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage={editorOptions.defaultLanguage} defaultPath={editorOptions.defaultPath} defaultValue='//Welcome to Javascript' onMount={handleEditorDidMount} onValidate={e => get_errors(e)} />
+                        <Editor height={'100%'} width={'100%'} theme='vs-dark' defaultLanguage={editorOptions.defaultLanguage} defaultPath={editorOptions.defaultPath} defaultValue='//Welcome to Javascript' onMount={handleEditorDidMount} onValidate={e => get_errors(e)} />
                     </div>
                 </div>
             </div>
@@ -342,7 +426,7 @@ function Workspace() {
             <div className={`absolute flex flex-col right-10 top-10 bg-[#282828] w-1/4 h-4/6 rounded-lg border border-white/30 ${!debugBox ? 'hidden' : ''}`}>
                 <div className='w-full flex items-center justify-between box-border px-3 pr-5 py-2 border-b border-white/30 bg-[#353535] rounded-t-lg text-white/80 text-sm font-semibold'>
                     <div>
-                        <img src='loader.gif' className='w-8 inline-block mr-3' />
+                        <img src='/loader.gif' className='w-8 inline-block mr-3' />
                         {searchMsg}
                     </div>
 

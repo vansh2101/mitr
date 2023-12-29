@@ -51,11 +51,20 @@ function static_code(workspace, type=null){
 
 
 
-export function add_file_to_db(user, project, file, code){
+export function add_file_to_db(user, project, file, code='', folder='/'){
     const db = firebase.firestore()
 
     db.collection('projects').doc(user).collection(project).doc(file).set({
         name: file,
+        code: code,
+        folder: folder
+    })
+}
+
+export async function update_file_in_db(user, project, file, code){
+    const db = firebase.firestore()
+
+    await db.collection('projects').doc(user).collection(project).doc(file).update({
         code: code
     })
 }
@@ -72,7 +81,7 @@ export async function get_files_from_db(user, project){
     files.forEach(file => {
         const data = file.data()
 
-        if(!(data.folder in folders)){
+        if(!(folders.includes(data.folder))){
             folders.push(data.folder)
             structure[data.folder] = [data]
         }

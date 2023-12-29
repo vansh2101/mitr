@@ -21,6 +21,30 @@ export async function text_2_code(data) {
 }
 
 
+export async function refactor(data) {
+	const response = await fetch('http://localhost:8000/assistant/refactor', {
+		method: 'POST',
+		headers: {"Content-Type": "application/json"},
+		body: JSON.stringify({"prompt": data}),
+	})
+
+	const result = await response.json();
+	return result;
+}
+
+
+export async function test_generation(data) {
+	const response = await fetch('http://localhost:8000/assistant/test', {
+		method: 'POST',
+		headers: {"Content-Type": "application/json"},
+		body: JSON.stringify({"prompt": data}),
+	})
+
+	const result = await response.json();
+	return result;
+}
+
+
 export async function code_completion(data) {
 	const response = await fetch(
 		"http://localhost:8000/assistant/code",
