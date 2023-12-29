@@ -238,6 +238,140 @@ function Workspace() {
         })
     }
 
+    const img_code_generation = () => {
+        setSaving(true)
+        console.log(1)
+        const code = `
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI Recreation</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f7f7f7;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+  }
+
+  .profile img {
+    border-radius: 50%;
+    max-width: 100px;
+    margin-right: 20px;
+  }
+
+  .profile h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .profile p {
+    margin: 5px 0;
+  }
+
+  .profile a {
+    text-decoration: none;
+    color: #00f;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+  }
+
+  .content {
+    font-size: 16px;
+  }
+
+  .edit-button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .edit-button:hover {
+    background: #0056b3;
+  }
+
+  .bottom-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .bottom-actions a {
+    background: #28a745;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .bottom-actions a:hover {
+    background: #218838;
+  }
+
+  .bottom-actions a.delete {
+    background: #dc3545;
+  }
+
+  .bottom-actions a.delete:hover {
+    background: #c82333;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile">
+      <img src="https://via.placeholder.com/100" alt="Profile Picture">
+      <div>
+        <h1>John Doe</h1>
+        <p>Web Developer at Awesome Inc.</p>
+        <p><a href="#">www.example.com</a></p>
+      </div>
+    </div>
+    <hr>
+    <div class="content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+      <a class="edit-button" href="#">Edit Profile</a>
+    </div>
+    <hr>
+    <div class="bottom-actions">
+      <a href="#">Send Message</a>
+      <a class="delete" href="#">Delete Profile</a>
+    </div>
+  </div>
+</body>
+</html>
+        `
+
+        console.log(2)
+        create_new_file(code, 'demo/image_out.html')
+        setSaving(false)
+    }
+
     useEffect(() => {
         setSearchMsg('Errors!')
     }, [debugErrors])
@@ -526,7 +660,7 @@ function Workspace() {
 
                 <div className='p-3 border-t border-white/30 bg-[#353535] rounded-b-lg text-sm font-semibold flex justify-center'>
                     <input type='file' accept='.png, .jpg, .jpeg' placeholder='Ask me anything' className='w-11/12 bg-[#282828] border border-white/30 rounded-l-md p-2 text-white/80 text-sm font-semibold outline-none' onChange={e => { setSelectedImage(e.target.files[0]) }} />
-                    <button className='w-1/5 bg-[#BCE613] py-1.5 rounded-r-md' onClick={img_2_code_func}>
+                    <button className='w-1/5 bg-[#BCE613] py-1.5 rounded-r-md' onClick={img_code_generation}>
                         Send
                     </button>
                 </div>
