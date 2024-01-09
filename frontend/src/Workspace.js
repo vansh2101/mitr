@@ -101,10 +101,14 @@ function Workspace() {
     const complete_code = (event) => {
         if (event.keyCode !== 9) { return }
 
+        setSaving(true)
+
         code_completion(editorRef.current.getValue()).then((response) => {
-            const result = response.replace(/\\n/g, '\n').replace(/```javascript/g, '').replace(/```/g, '');
+            const result = response.replace(/\\n/g, '\n').replace(/```javascript/g, '').replace(/```jsx/g, '').replace(/```/g, '');
 
             editorRef.current.setValue(result);
+
+            setSaving(false)
         });
     }
 
@@ -128,10 +132,12 @@ function Workspace() {
     }
 
     const text_2_code_func = () => {
+        setSaving(true)
         text_2_code(ask).then((response) => {
             editorRef.current.setValue(response.replace(/```javascript/g, '').replace(/```jsx/g, '').replace(/```/g, ''));
             setAsk('');
             setGenerateBox(false);
+            setSaving(false)
         })
     }
 
@@ -191,8 +197,9 @@ function Workspace() {
         })
     }
 
-    const create_new_file = (code='', file=null) => {
-        if(!file){
+    const create_new_file = (code='\n', file=null) => {
+        if(file == null){
+            console.log(fileName)
             var name = fileName.includes('/') ? fileName.split('/')[1] : fileName
             var fold = fileName.includes('/') ? fileName.split('/')[0] : '/'
         }
@@ -200,7 +207,8 @@ function Workspace() {
             var name = file.includes('/') ? file.split('/')[1] : file
             var fold = file.includes('/') ? file.split('/')[0] : '/'
         }
-
+        console.log(1)
+        console.log(name, fold, code, user, workspace)
         add_file_to_db(user, workspace, name, code, fold)
         setShowSearchInput(false)
         get_all_files()
@@ -247,122 +255,79 @@ function Workspace() {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UI Recreation</title>
+<title>Select a Plan</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: #f7f7f7;
-  }
-
   .container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
-    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
   }
-
-  .profile {
-    display: flex;
-    align-items: center;
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
   }
-
-  .profile img {
-    border-radius: 50%;
-    max-width: 100px;
-    margin-right: 20px;
+  .card-header {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
   }
-
-  .profile h1 {
-    margin: 0;
-    font-size: 24px;
+  .card-body {
+    list-style: none;
+    padding: 0;
   }
-
-  .profile p {
-    margin: 5px 0;
+  .card-body li {
+    padding: 5px 0;
   }
-
-  .profile a {
-    text-decoration: none;
-    color: #00f;
-  }
-
-  hr {
-    border: none;
-    height: 1px;
-    background: #ddd;
-    margin: 20px 0;
-  }
-
-  .content {
-    font-size: 16px;
-  }
-
-  .edit-button {
-    display: inline-block;
-    padding: 10px 15px;
+  .card-footer {
     margin-top: 10px;
-    background: #007bff;
-    color: #fff;
-    text-decoration: none;
+  }
+  .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: block;
     border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .edit-button:hover {
-    background: #0056b3;
-  }
-
-  .bottom-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-
-  .bottom-actions a {
-    background: #28a745;
-    padding: 10px 20px;
-    color: #fff;
     text-decoration: none;
-    border-radius: 5px;
-  }
-
-  .bottom-actions a:hover {
-    background: #218838;
-  }
-
-  .bottom-actions a.delete {
-    background: #dc3545;
-  }
-
-  .bottom-actions a.delete:hover {
-    background: #c82333;
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="profile">
-      <img src="https://via.placeholder.com/100" alt="Profile Picture">
-      <div>
-        <h1>John Doe</h1>
-        <p>Web Developer at Awesome Inc.</p>
-        <p><a href="#">www.example.com</a></p>
-      </div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>ICICI Direct Prime</h2>
     </div>
-    <hr>
-    <div class="content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-      <a class="edit-button" href="#">Edit Profile</a>
-    </div>
-    <hr>
-    <div class="bottom-actions">
-      <a href="#">Send Message</a>
-      <a class="delete" href="#">Delete Profile</a>
+    <ul class="card-body">
+      <li>Low brokerage</li>
+      <li>Instant Payout</li>
+      <li>Exclusive research for cash segment</li>
+    </ul>
+    <div class="card-footer">
+      <a href="#" class="btn">Select Prime Plan</a>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>ICICI Direct Neo</h2>
+    </div>
+    <ul class="card-body">
+      <li>₹ 0 for Futures</li>
+      <li>₹ 20/order for Intraday & Options</li>
+    </ul>
+    <div class="card-footer">
+      <div>₹299 is payable one time as a lifetime subscription cost</div>
+      <div class="price">₹ 299</div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
         `
@@ -429,7 +394,7 @@ function Workspace() {
 
                             <div
                                 className='flex items-center gap-3 bg-[#242424] px-3 py-1.5 text-[#808080] rounded-md cursor-pointer border border-white/10 duration-150 hover:bg-white/30 hover:border-white/50 hover:text-white'
-                                onClick={create_new_file}
+                                onClick={() => create_new_file('', null)}
                                 >
                                 <FaPlus />
                             </div>
